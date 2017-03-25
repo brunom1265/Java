@@ -1,0 +1,23 @@
+package com.im.out.graphics;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
+public class Texture {
+
+	private int id;
+	private int width;
+	private int height;
+	
+	public Texture(String filename){
+		BufferedImage image;
+		try{
+			image = ImageIO.read(new File(filename));
+		}catch(IOException e){
+			
+		}
+	}
+	
+}

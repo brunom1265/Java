@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;bvsm.windowMaker.windowGuide.java&apos; to &apos;WindowGuide.java&apos;&#x0D;&#x0A;- Original project: &apos;Bombeiros&apos;&#x0D;&#x0A;- Original element: &apos;bvsm.windowMaker.windowGuide.java&apos;&#x0D;&#x0A;- Renamed element: &apos;bvsm.windowMaker.WindowGuide.java&apos;" description="Rename compilation unit &apos;windowGuide.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;bvsm.windowMaker{windowGuide.java" name="WindowGuide.java" references="false" stamp="1483800494687" version="1.0"/>
+</session>

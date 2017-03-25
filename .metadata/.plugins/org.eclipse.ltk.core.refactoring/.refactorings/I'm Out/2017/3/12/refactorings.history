@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;I&apos;m Out/src/com/im/out/shader&apos; to &apos;shaders&apos;" description="Rename resource &apos;shader&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/com/im/out/shader" name="shaders" stamp="1490135800889" updateReferences="true"/>
+</session>
