@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContextState>
+<org.eclipse.mylyn.context.ui.editors>
+<MonitoredWindowOpenEditors class="org.eclipse.ui.internal.WorkbenchWindow" isActive="true" isLaunching="true" number="0">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PerguntasPanel.java" partName="PerguntasPanel.java" title="PerguntasPanel.java" tooltip="Bombeiros/src/bvsm/panel/PerguntasPanel.java">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Bombeiros/src/bvsm/panel/PerguntasPanel.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="985" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Tools.java" partName="Tools.java" title="Tools.java" tooltip="Bombeiros/src/bvsm/panel/tools/Tools.java">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Bombeiros/src/bvsm/panel/tools/Tools.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="11" selectionOffset="7294" selectionTopPixel="3218"/>
+</editor>
+</MonitoredWindowOpenEditors>
+</org.eclipse.mylyn.context.ui.editors>
+</ContextState>

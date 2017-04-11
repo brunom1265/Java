@@ -1,7 +1,0 @@
-#version 120
-
-attribute vec4 vertices;
-
-void main(){
-	gl_Position = vec4(vertices, 1);
-}

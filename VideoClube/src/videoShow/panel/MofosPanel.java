@@ -40,24 +40,39 @@ public class MofosPanel extends BasePanel{
 	public void actionPerformed(ActionEvent e) {
 
 		try {
-			if(e.getActionCommand() == "Next" && d.getVideoName("POP", videoIndex) != ""){
-					videoIndex += 1;
+			if(e.getActionCommand() == "Next" && d.getVideoName("POP", videoIndex) != null){
+					if(d.getVideoName("POP", videoIndex + 1) != null)
+					videoIndex++;
 					showText();
+
 				}
 		} catch (ClassNotFoundException | SQLException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		if(e.getActionCommand() == "Previous" && videoIndex > 1){
-			videoIndex -= 1;
+			--videoIndex;
 			showText();
 		}
 	}
 	
 	private void showText(){
 		try {
+			String tempFirst = "";
+			String tempLast = "";
+
+			String video = d.getVideoName("POP", videoIndex);
+			String[] ss=video.split("_");
+			for(int i=0;i<ss.length;i++)
+			{
+				if(i == 1) tempFirst = ss[i];
+				if(i == 2) tempLast = ss[i];
+			}
+			String name = tempFirst.substring(0, 1).toUpperCase() + tempFirst.substring(1);
+			String surname = tempLast.substring(0, 1).toUpperCase() + tempLast.substring(1);
 
 			getTextField("videoName").setText(d.getVideoName("POP", videoIndex));
+			getTextField("atrizName").setText(name + " " + surname);
 		} catch (ClassNotFoundException | SQLException | IOException e) {
 			e.printStackTrace();
 		}

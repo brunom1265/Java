@@ -5,6 +5,11 @@ import static org.lwjgl.opengl.GL20.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.FloatBuffer;
+
+import org.lwjgl.BufferUtils;
+
+import com.im.out.org.joml.Matrix4f;
 
 public class Shader {
 
@@ -58,6 +63,16 @@ public class Shader {
 		int location = glGetUniformLocation(program, name); //get a location for uniform relative to the attacherShader
 		if(location != -1){
 			glUniform1i(location, value); //send the uniform to the location
+		}
+	}
+	
+	public void setUniform(String name, Matrix4f value){
+		int location = glGetUniformLocation(program, name); //get a location for uniform relative to the attacherShader
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
+		value.get(buffer);
+		
+		if(location != -1){
+			glUniformMatrix4fv(location, false, buffer); //send the uniform to the location
 		}
 	}
 	

@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 public class Tools implements ActionListener{
@@ -19,7 +21,8 @@ public class Tools implements ActionListener{
 	TextArea textArea;
 	JTextArea jtextArea;
 	JLabel label;
-	JComboBox combo;
+	JComboBox<String> combo;
+	ButtonGroup bg;
 	
 	int buttonWidth = 110;
 	int buttonHeight = 35;
@@ -29,8 +32,9 @@ public class Tools implements ActionListener{
 	ArrayList<TextArea> textAreaArray = new ArrayList<TextArea>();
 	ArrayList<JTextArea> jtextAreaArray = new ArrayList<JTextArea>();
 	ArrayList<JLabel> labelArray = new ArrayList<JLabel>();
-	ArrayList<JComboBox> JComboListArray = new ArrayList<JComboBox>();
-		
+	ArrayList<JComboBox<String>> JComboListArray = new ArrayList<JComboBox<String>>();
+	ArrayList<JRadioButton> JRadioButtonArray = new ArrayList<JRadioButton>();
+	
 	public void createButton(String text, int x, int y){
 		jbutton = new JButton();
 		jbutton.setText(text);
@@ -176,7 +180,36 @@ public class Tools implements ActionListener{
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
 	}
+	
+	public JComboBox<String> createComboBox(String[] list, String name, int x, int y, int width, int height, boolean visible){
+		combo = new JComboBox<String>();
+		combo.setName(name);
+		combo.setBounds(x, y, width, height);
+		combo.setVisible(visible);
+		for(int i = 0; i < list.length; i++){
+			combo.addItem(list[i]);
+			combo.addActionListener(this);
+		}
+		
+		JComboListArray.add(combo);
+		return combo;
+	}
+	
+	public ButtonGroup createButtonGroup(){
+		bg = new ButtonGroup();
+		return bg;
+	}
 
+	public JRadioButton createRadioButton(String name, int x, int y, int width, int height, boolean visible){
+		JRadioButton rb = new JRadioButton();
+		rb.setActionCommand(name);
+		rb.setBounds(x, y, width, height);
+		rb.setVisible(visible);
+		JRadioButtonArray.add(rb);
+		return rb;
+		
+	}
+	
 	public void addComponents(JPanel panel){
 		for(JButton button : buttonArray){
 			panel.add(button);
@@ -196,6 +229,52 @@ public class Tools implements ActionListener{
 		
 		for(JLabel label : labelArray){
 			panel.add(label);
+		}
+		
+		for(JComboBox<String> combo : JComboListArray){
+			panel.add(combo);
+		}
+		
+		for(int i = 0; i < JRadioButtonArray.size(); i++){
+			bg.add(JRadioButtonArray.get(i));
+			JRadioButtonArray.get(i).addActionListener(this);
+			panel.add(JRadioButtonArray.get(i));
+			System.out.println(JRadioButtonArray.get(i).getName());
+		}		
+	}
+	
+	public void updateCombo(String[] list, String cbName){
+		JComboBox<String> cb;
+		for(int i = 0; i < JComboListArray.size(); i++){
+			if(JComboListArray.get(i).getName() == cbName){
+				cb = JComboListArray.get(i);
+				cb.removeAllItems();
+				for(int x = 0; x < list.length; x++){
+					cb.addItem(list[x]);
+				}
+				break;
+			}
+		}
+	}
+	
+	public JButton getButton(String name){
+		for(int i = 0; i < buttonArray.size();i++){
+			if(buttonArray.get(i).getName() == name){
+				return buttonArray.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public void setRadioBoxVisible(boolean visible){
+		for(int i = 0; i < JRadioButtonArray.size();i++){
+			JRadioButtonArray.get(i).setVisible(visible);
+		}
+	}
+	
+	public void setComboBoxEditable(boolean editable){
+		for(int i = 0; i < JComboListArray.size();i++){
+			JComboListArray.get(i).setEnabled(editable);
 		}
 	}
 	public void actionPerformed(ActionEvent e) {

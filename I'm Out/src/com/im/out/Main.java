@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL;
 import com.im.out.graphics.Model;
 import com.im.out.graphics.Shader;
 import com.im.out.graphics.Texture;
+import com.im.out.org.joml.Matrix4f;
 
 public class Main {
 
@@ -19,6 +20,7 @@ public class Main {
 	private static Model model;
 	public static Texture tex;
 	public static Shader shader;
+	public static Matrix4f projection;
 	
 	public static void init() {
 
@@ -78,6 +80,8 @@ public class Main {
 		
 		tex = new Texture("../I'm Out/src/com/im/out/res/images/barack.jpg");
 		
+		projection = new Matrix4f().ortho2D(-640/2, 640/2, 480/2, -480/2);
+		
 		while(!glfwWindowShouldClose(window)){
 
 			glfwPollEvents();
@@ -107,13 +111,13 @@ public class Main {
 		model.render();
 		
 		glfwSwapBuffers(window);
-
+		
 	}
 
 	public static void stop() {
 
 	}
-
+	
 	public static void main(String[] args) {
 		init();
 		run();
