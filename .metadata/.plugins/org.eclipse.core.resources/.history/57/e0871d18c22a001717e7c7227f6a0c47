@@ -1,0 +1,91 @@
+package bvsm.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Database {
+	
+	private static Connection con;
+	private static boolean hasData = false;
+	
+	public Database(){
+		getQuestions();
+	}
+
+	public ResultSet getQuestions(){
+		connect();
+		try {
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT q1, q2, q3 FROM inFlorestais");
+			return res;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	private void connect(){
+		if(con == null){
+			getConnection();
+		}
+	}
+	
+	private void getConnection(){
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:./src/bvsm/database/BVSM.db");
+			initialise();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void initialise() {
+		if(!hasData){
+			 hasData = true;
+			 
+			 Statement state;
+			try {
+				state = con.createStatement();
+				 ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='user'");
+				 if(!res.next()){
+					 System.out.println("Building the User table");
+					 Statement state2 = con.createStatement();
+					 state2.executeQuery("CREATE TABLE inFlorestais(id integer,"
+							 									   + "q1 varchar(120)," 
+							 									   + "q2 varchar(120),"
+							 									   + "q3 varchar(120),"
+							 									   + "rq integer(3),"
+							 									   + "theme integer(20),"
+							 									   + "primary key(id));");
+					 
+					 Statement state3 = con.createStatement();
+					 state3.executeQuery("CREATE TABLE inUrbanos(id integer,"
+							 									   + "q1 varchar(120)," 
+							 									   + "q2 varchar(120),"
+							 									   + "q3 varchar(120),"
+							 									   + "rq integer(3),"
+							 									   + "theme integer(20),"
+							 									   + "primary key(id));");
+				 }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public void insertQuestion(String theme){
+		try {
+			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?)");
+			prep.setString(2, );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+}

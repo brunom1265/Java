@@ -1,0 +1,13 @@
+package bvsm.questions;
+
+import bvsm.fileManager.FileManager;
+
+public class Questions{
+	private FileManager fm;
+	
+	public Questions(){
+		fm = new FileManager();
+		
+	}
+	
+}

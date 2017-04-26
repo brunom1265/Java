@@ -1,11 +1,10 @@
 package bvsm;
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
 
 import bvsm.panel.MainPanel;
 import bvsm.panel.ToolPanel;
+import bvsm.questions.Questions;
 
 public class Main {
 	
@@ -15,6 +14,7 @@ public class Main {
 	
 	protected JFrame mainFrame;
 	protected JFrame toolFrame;
+	private Questions questions;
 	
 	MainPanel mainPanel;
 	ToolPanel toolPanel;
@@ -22,12 +22,13 @@ public class Main {
 	public Main(){
 		mainFrame = new JFrame(mFrameTitle);
 		toolFrame = new JFrame("Tools");
+		questions = new Questions();
 		
-		mainPanel = new MainPanel(mainFrame, mFrameTitle, 0, 0, width, height, Color.RED);
+		mainPanel = new MainPanel(mainFrame, mFrameTitle, 0, 0, width, height);
 		mainPanel.setVisible(true);
-		toolPanel = new ToolPanel(toolFrame, "tools", 0, 0, 220, 440, Color.GRAY);
+		toolPanel = new ToolPanel(toolFrame, "tools", 0, 0, 220, 440);
 		toolPanel.setVisible(true);
-
+	
 	}
 	
 	public static void main(String[] args) {

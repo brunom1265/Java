@@ -1,0 +1,10 @@
+package bvsm.questions;
+
+
+public class Questions{
+	Database db;
+	public Questions(){
+		db = new Database();
+	}
+	
+}

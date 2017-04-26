@@ -1,23 +1,19 @@
 package bvsm.panel;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.tools.Tool;
 
 public class PerguntasPanel extends BasePanel{
 	
 	
-	public PerguntasPanel(JFrame frame, String name, int x, int y, int width, int height, Color color) {
-		super(frame, name, x, y, width, height, color);
+	public PerguntasPanel(JFrame frame, String name, int x, int y, int width, int height) {
+		super(frame, name, x, y, width, height);
 	}
 
 	protected void createComponents(){
-		
-		createLabel(700, 0, 300,300, images.getImage("Bombeiros"));
-		
+				
 		String[] topics = {"Incêndio", "Saúde", "Sorteado"};
 		String[] incendio = {"Florestal", "Urbano"};
 		

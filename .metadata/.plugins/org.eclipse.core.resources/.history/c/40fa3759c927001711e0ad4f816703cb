@@ -1,0 +1,11 @@
+package bvsm.questions;
+
+import bvsm.fileManager.FileManager;
+
+public class Questions{
+	
+	public Questions(){
+		
+	}
+	
+}

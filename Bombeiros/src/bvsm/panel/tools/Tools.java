@@ -239,7 +239,6 @@ public class Tools implements ActionListener{
 			bg.add(JRadioButtonArray.get(i));
 			JRadioButtonArray.get(i).addActionListener(this);
 			panel.add(JRadioButtonArray.get(i));
-			System.out.println(JRadioButtonArray.get(i).getName());
 		}		
 	}
 	

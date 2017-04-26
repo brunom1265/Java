@@ -1,0 +1,42 @@
+package bvsm.fileManager;
+
+import java.io.*;
+
+public class FileManager {
+
+	File file;
+	PrintWriter out;
+	
+	String path = "src//bvsm//fileManager//Perguntas.txt";
+
+	public FileManager(){
+		try {
+
+			file = new File(path);
+
+			if (!file.exists()) {
+				file.createNewFile();
+				System.out.println("File is created!");
+			} else {
+				System.out.println("File already exists.");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void writeFile(String theme, String[] questions, String rAnswer) {
+		try {
+			out = new PrintWriter(path);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		out.print("ola");
+	}
+
+	public void readFile() {
+
+	}
+}

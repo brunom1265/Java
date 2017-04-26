@@ -1,0 +1,10 @@
+package bvsm.questions;
+
+
+public class Questions{
+	
+	public Questions(){
+		
+	}
+	
+}

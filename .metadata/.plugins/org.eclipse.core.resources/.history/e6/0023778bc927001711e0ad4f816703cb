@@ -1,0 +1,17 @@
+package bvsm.questions;
+
+import java.io.IOException;
+
+import bvsm.database.Database;
+
+public class Questions{
+	Database db;
+	public Questions(){
+		try {
+			db = new Database();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+}

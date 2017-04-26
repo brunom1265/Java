@@ -1,0 +1,9 @@
+package bvsm.panel;
+
+public class DefinicoesPanel extends BasePanel{
+
+	protected void createComponents() {
+		super.createComponents();
+	}
+
+}
