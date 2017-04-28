@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 public class PerguntasPanel extends BasePanel{
 	
 	
-	public PerguntasPanel(JFrame frame, String name, int x, int y, int width, int height) {
-		super(frame, name, x, y, width, height);
+	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents(){
@@ -20,6 +20,7 @@ public class PerguntasPanel extends BasePanel{
 		createComboBox(topics, "topic", 100, 100, 150, 30, true);
 		createComboBox(incendio, "subTopic", 300, 100, 150, 30, true);
 		createButton("Iniciar teste", "iniciar", 100, 200);
+		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createQuestionArea();
 	}
 	
@@ -51,6 +52,11 @@ public class PerguntasPanel extends BasePanel{
 			createQuestionArea();
 			setRadioBoxVisible(true);
 			setComboBoxEditable(false);
+		}
+		
+		if(e.getActionCommand() == "Voltar"){
+			setVisible(false);
+			previous.setVisible(true);
 		}
 	}
 

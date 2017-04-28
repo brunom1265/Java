@@ -60,7 +60,8 @@ public class Database {
 					 Statement state2 = con.createStatement();
 					 state2.execute("CREATE TABLE admin(id integer,"
 							 									   + "username varchar(60)," 
-							 									   + "password int(60)," 
+							 									   + "password int(60),"
+							 									   + "type int(3),"
 							 									   + "primary key(id));");
 					 Statement state3 = con.createStatement();
 					 state3.execute("CREATE TABLE inFlorestais(id integer,"
@@ -83,23 +84,41 @@ public class Database {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			addUser("ICENine", 650031772, 1);
 
 		}
 	}
 	
-	public void addUser(String username, int password){
+	public void addUser(String username, int password, int type){
 		if(con == null){
 			connect();
 		}
 		
 		PreparedStatement prep;
 		try {
-			prep = con.prepareStatement("INSERT INTO admin values(?, ?, ?)");
+			prep = con.prepareStatement("INSERT INTO admin values(?, ?, ?, ?)");
 			prep.setString(2, username);
 			prep.setInt(3, password);
+			prep.setInt(4, type);
+			prep.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ResultSet getUser(String username, String password) throws SQLException{
+		if(con == null){
+			connect();
+		}
+
+		Statement state = con.createStatement();
+
+		ResultSet res = state.executeQuery("SELECT * FROM admin WHERE username='" + username + "' AND password='" + password + "'");
+		
+		if(res.next()){
+			return res;
+		}
+		return null;
 	}
 	
 	public void insertQuestion(String theme, String q1, String q2, String q3, int rQ){

@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bvsm.database.Database;
 import bvsm.images.GetImages;
 import bvsm.panel.tools.Tools;
 
@@ -12,9 +13,10 @@ public abstract class BasePanel extends Tools{
 	
 	public JPanel panel;
 	protected GetImages images;
+	public Database db = new Database();
+	public BasePanel previous;
 	
-	public BasePanel(JFrame frame, String name, int x, int y, int width, int height){
-
+	public BasePanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height){
 
 		images = new GetImages();
 		panel = new JPanel();
@@ -23,6 +25,7 @@ public abstract class BasePanel extends Tools{
 		panel.setBounds(x, y, width, height);
 		panel.setBackground(Color.RED);
 		createLabel(700, 0, 300,300, images.getImage("Bombeiros"));
+		this.previous = previous;
 		addComponents(panel);
 		panel.setLayout(null);
 		panel.setVisible(false);

@@ -1,0 +1,5 @@
+package bvsm.panel.privilege;
+
+public class Admin extends BasePanel{
+
+}

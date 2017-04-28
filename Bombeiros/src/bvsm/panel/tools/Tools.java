@@ -265,6 +265,20 @@ public class Tools implements ActionListener{
 		return null;
 	}
 	
+	public JTextArea getTextArea(String name){
+		for(int i = 0; i < jtextAreaArray.size(); i++){
+			if(jtextAreaArray.get(i).getName() == name) return jtextAreaArray.get(i);
+		}
+		return null;
+	}
+	
+	public JLabel getLabel(String name){
+		for(int i = 0; i < labelArray.size(); i++){
+			if(labelArray.get(i).getName() == name) return labelArray.get(i);
+		}
+		return null;
+	}
+	
 	public void setRadioBoxVisible(boolean visible){
 		for(int i = 0; i < JRadioButtonArray.size();i++){
 			JRadioButtonArray.get(i).setVisible(visible);

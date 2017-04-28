@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 
 public class ToolPanel extends BasePanel{
 
-	public ToolPanel(JFrame frame, String name, int x, int y, int width, int height) {
-		super(frame, name, x, y, width, height);
+	public ToolPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents(){

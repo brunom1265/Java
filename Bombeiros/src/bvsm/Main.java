@@ -21,13 +21,13 @@ public class Main {
 		
 	public Main(){
 		mainFrame = new JFrame(mFrameTitle);
-		toolFrame = new JFrame("Tools");
+		//toolFrame = new JFrame("Tools");
 		questions = new Questions();
 		
-		mainPanel = new MainPanel(mainFrame, mFrameTitle, 0, 0, width, height);
+		mainPanel = new MainPanel(null, mainFrame, mFrameTitle, 0, 0, width, height);
 		mainPanel.setVisible(true);
-		toolPanel = new ToolPanel(toolFrame, "tools", 0, 0, 220, 440);
-		toolPanel.setVisible(true);
+		//toolPanel = new ToolPanel(null, toolFrame, "tools", 0, 0, 220, 440);
+		//toolPanel.setVisible(true);
 	
 	}
 	
@@ -36,7 +36,7 @@ public class Main {
 		setFrame(main.mainFrame, width, height, null, true);
 		int x = main.mainFrame.getWidth() + main.mainFrame.getX();
 		int y = main.mainFrame.getY();
-		setFrame(main.toolFrame, 220, 440, x, y, true);
+		//setFrame(main.toolFrame, 220, 440, x, y, true);
 	} 
 	
 	public static void setFrame(JFrame frame, int width, int height, JFrame location, boolean visible){

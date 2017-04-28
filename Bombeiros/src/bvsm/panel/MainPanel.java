@@ -6,22 +6,28 @@ import javax.swing.JFrame;
 
 public class MainPanel extends BasePanel{
 	
-	MateriaPanel mPanel;
-	PerguntasPanel pPanel;
-	DefinicoesPanel dPanel;
+	BasePanel mPanel;
+	BasePanel pPanel;
+	BasePanel dPanel;
 	
-	public MainPanel(JFrame frame, String name, int x, int y, int width, int height) {
-		super(frame, name, x, y, width, height);
-		mPanel = new MateriaPanel(frame, "Materia", 0, 0, width, height);
-		pPanel = new PerguntasPanel(frame, "Perguntas", 0, 0, width, height);
-		dPanel = new DefinicoesPanel(frame, "Definicoes", 0, 0, width, height);
+	JFrame frame;
+	
+	public MainPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
+		mPanel = new MateriaPanel(this, frame, "Materia", 0, 0, width, height);
+		pPanel = new PerguntasPanel(this, frame, "Perguntas", 0, 0, width, height);
+		dPanel = new DefinicoesPanel(this, frame, "Definicoes", 0, 0, width, height);
+		this.frame = frame;
 	}
 	
 	protected void createComponents(){
 		createLabel(700, 0, 300,300, images.getImage("Bombeiros"));
+		createLabel("Versão Alpha 0.01 ", "versão", 700, 600);
 		createButton("Matéria", 100, 100);
 		createButton("Perguntas", 230, 100);
 		createButton("Definições", 360, 100);
+		createButton("Sair", 490, 100);
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -38,6 +44,10 @@ public class MainPanel extends BasePanel{
 		if(e.getActionCommand() == "Definições"){
 			setVisible(false);
 			dPanel.setVisible(true);
+		}
+		
+		if(e.getActionCommand() == "Sair"){
+			frame.dispose();
 		}
 	}
 }
