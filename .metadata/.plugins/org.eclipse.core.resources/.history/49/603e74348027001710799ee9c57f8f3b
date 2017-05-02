@@ -1,5 +1,0 @@
-package bvsm.questions;
-
-public class Questions implements File{
-
-}

@@ -1,19 +1,11 @@
 package bvsm.panel.tools;
 
-import java.awt.TextArea;
-import java.awt.TextField;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 public class Tools implements ActionListener{
 	JButton jbutton;
@@ -21,7 +13,9 @@ public class Tools implements ActionListener{
 	TextArea textArea;
 	JTextArea jtextArea;
 	JLabel label;
+	Panel panel;
 	JComboBox<String> combo;
+	JTable table;
 	ButtonGroup bg;
 	
 	int buttonWidth = 110;
@@ -32,6 +26,7 @@ public class Tools implements ActionListener{
 	ArrayList<TextArea> textAreaArray = new ArrayList<TextArea>();
 	ArrayList<JTextArea> jtextAreaArray = new ArrayList<JTextArea>();
 	ArrayList<JLabel> labelArray = new ArrayList<JLabel>();
+	ArrayList<Panel> panelArray = new ArrayList<Panel>();
 	ArrayList<JComboBox<String>> JComboListArray = new ArrayList<JComboBox<String>>();
 	ArrayList<JRadioButton> JRadioButtonArray = new ArrayList<JRadioButton>();
 	
@@ -172,6 +167,7 @@ public class Tools implements ActionListener{
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
 	}
+	
 	public JLabel createLabel(int x, int y, int width, int height, ImageIcon icon){
 		label = new JLabel();
 		label.setBounds(x, y, width, height);
@@ -179,6 +175,15 @@ public class Tools implements ActionListener{
 		label.setVisible(true);
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
+	}
+	
+	public Panel createPanel(String name, int x, int y, int width, int height){
+		panel = new Panel();
+		panel.setBounds(x, y, width, height);
+		panel.setName(name);
+		panel.setVisible(true);
+		panelArray.add(panel);
+		return panelArray.get(panelArray.size() - 1);
 	}
 	
 	public JComboBox<String> createComboBox(String[] list, String name, int x, int y, int width, int height, boolean visible){
@@ -210,6 +215,14 @@ public class Tools implements ActionListener{
 		
 	}
 	
+	public JTable createTable(String[][] data, String[] columnNames){
+		
+		JTable table = new JTable(data, columnNames);
+		
+		return table;
+
+	}
+	
 	public void addComponents(JPanel panel){
 		for(JButton button : buttonArray){
 			panel.add(button);
@@ -231,9 +244,15 @@ public class Tools implements ActionListener{
 			panel.add(label);
 		}
 		
+		for(Panel panel1 : panelArray){
+			panel.add(panel1);
+		}
+		
 		for(JComboBox<String> combo : JComboListArray){
 			panel.add(combo);
 		}
+		
+		
 		
 		for(int i = 0; i < JRadioButtonArray.size(); i++){
 			bg.add(JRadioButtonArray.get(i));
@@ -279,6 +298,13 @@ public class Tools implements ActionListener{
 		return null;
 	}
 	
+	public Panel getPanel(String name){
+		for(int i = 0; i < panelArray.size(); i++){
+			if(panelArray.get(i).getName() == name) return panelArray.get(i);
+		}
+		return null;
+	}
+
 	public void setRadioBoxVisible(boolean visible){
 		for(int i = 0; i < JRadioButtonArray.size();i++){
 			JRadioButtonArray.get(i).setVisible(visible);
@@ -290,6 +316,9 @@ public class Tools implements ActionListener{
 			JComboListArray.get(i).setEnabled(editable);
 		}
 	}
-	public void actionPerformed(ActionEvent e) {
+	
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

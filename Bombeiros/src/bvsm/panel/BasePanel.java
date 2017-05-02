@@ -11,7 +11,7 @@ import bvsm.panel.tools.Tools;
 
 public abstract class BasePanel extends Tools{
 	
-	public JPanel panel;
+	public JPanel jpanel;
 	protected GetImages images;
 	public Database db = new Database();
 	public BasePanel previous;
@@ -19,17 +19,17 @@ public abstract class BasePanel extends Tools{
 	public BasePanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height){
 
 		images = new GetImages();
-		panel = new JPanel();
+		jpanel = new JPanel();
 		createComponents();
-		panel.setName(name);
-		panel.setBounds(x, y, width, height);
-		panel.setBackground(Color.RED);
+		jpanel.setName(name);
+		jpanel.setBounds(x, y, width, height);
+		jpanel.setBackground(Color.RED);
 		createLabel(700, 0, 300,300, images.getImage("Bombeiros"));
 		this.previous = previous;
-		addComponents(panel);
-		panel.setLayout(null);
-		panel.setVisible(false);
-		frame.add(panel);
+		addComponents(jpanel);
+		jpanel.setLayout(null);
+		jpanel.setVisible(false);
+		frame.add(jpanel);
 
 	}
 	
@@ -37,6 +37,6 @@ public abstract class BasePanel extends Tools{
 		
 	}
 	public void setVisible(boolean visible){
-		panel.setVisible(visible);
+		jpanel.setVisible(visible);
 	}
 }

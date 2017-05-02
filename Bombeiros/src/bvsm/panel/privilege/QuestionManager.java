@@ -1,5 +1,6 @@
 package bvsm.panel.privilege;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ public class QuestionManager extends BasePanel{
 	}
 
 	protected void createComponents() {
+		createPanel("mainPanel", 200, 200, 100, 100).setBackground(Color.black);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

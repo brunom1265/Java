@@ -16,9 +16,11 @@ public class PerguntasPanel extends BasePanel{
 				
 		String[] topics = {"Incêndio", "Saúde", "Sorteado"};
 		String[] incendio = {"Florestal", "Urbano"};
+		String[] subTopic = {"Extintores", "Bombas"};
 		
 		createComboBox(topics, "topic", 100, 100, 150, 30, true);
 		createComboBox(incendio, "subTopic", 300, 100, 150, 30, true);
+		createComboBox(subTopic, "subsubTopic", 500, 100, 150, 30, true);
 		createButton("Iniciar teste", "iniciar", 100, 200);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createQuestionArea();
