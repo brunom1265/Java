@@ -1,0 +1,121 @@
+package bvsm.panel.privilege;
+
+import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
+import bvsm.panel.BasePanel;
+
+public class Admin extends BasePanel{
+
+	ArrayList<String> usersInfo = new ArrayList<>();
+	ArrayList<String> passwordInfo = new ArrayList<>();
+		
+	DefaultTableModel model;
+	
+	public Admin(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
+	}
+
+	protected void createComponents() {
+		createButton("Utilizadores", 100, 100);
+		createButton("Perguntas", 230, 100);
+		createButton("Voltar", "voltarDefinicoes", 100, 600);
+		createLabel("Utilizador: ", "labelUtilizador", 100, 175);
+		createJTextArea("textUtilizador", "", 200, 175, 300, 35);
+		createButton("Procurar", 550, 175);
+		
+		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
+		String[] subTopic = {"Florestal", "Urbano"};
+		String[] subsubTopic = {"Extintores", "Bombas"};
+		
+		createComboBox(topics, "topic", 100, 180, 150, 30, false);
+		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
+		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
+		
+		
+		createTable("mainTable", 0, 3, 100, 250, 600, 270);
+		createTable("mainTable", 0, 4, 100, 250, 600, 270, false);
+
+		
+		model = (DefaultTableModel) getTable("mainTable").getModel();
+		
+		getAllUsers();
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand() == "Voltar"){
+			setVisible(false);
+			previous.setVisible(true);
+		}
+		
+		if(e.getActionCommand() == "Perguntas"){
+			
+			cleanTable();
+			
+			getComboBox("topic").setVisible(true);
+			getComboBox("subTopic").setVisible(true);
+			getComboBox("subsubTopic").setVisible(true);
+			getLabel("labelUtilizador").setVisible(false);
+			getTextArea("textUtilizador").setVisible(false);
+			getButton("Procurar").setVisible(false);
+			getTable("mainTable").setVisible(false);;
+
+		}
+		
+		if(e.getActionCommand() == "Utilizadores"){
+			
+			getComboBox("topic").setVisible(false);
+			getComboBox("subTopic").setVisible(false);
+			getComboBox("subsubTopic").setVisible(false);
+			getLabel("labelUtilizador").setVisible(true);
+			getTextArea("textUtilizador").setVisible(true);
+			getButton("Procurar").setVisible(true);
+			
+			getTable("mainTable").setVisible(true);;
+			
+			getAllUsers();
+		}
+	}
+
+	
+	private void getAllUsers(){
+		
+		cleanTable();
+		
+		try {
+			ResultSet res = db.getUsers();
+			while(res.next()){
+				model.addRow(new Object[]{
+					res.getString(2),
+					res.getString(3),
+					verifyNumber(res.getInt(4))
+				});
+
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+	}
+	
+	private String verifyNumber(int number){
+		if(number == 1) return "Administrador";
+		if(number == 2) return "Manager";
+		if(number == 3) return "Usuário";
+		return null;
+	}
+	
+	private void cleanTable(){
+		int RowsSize = model.getRowCount();
+		for(int i = RowsSize - 1; i >= 0; i--){
+			model.removeRow(i);
+	}
+	}
+}

@@ -1,0 +1,32 @@
+package bvsm.panel.privilege;
+
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
+import bvsm.panel.BasePanel;
+
+public class QuestionManager extends BasePanel{
+
+	public QuestionManager(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
+	}
+
+	protected void createComponents() {
+		
+		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
+		String[] subTopic = {"Florestal", "Urbano"};
+		String[] subsubTopic = {"Extintores", "Bombas"};
+		
+		createPanel("mainPanel", 200, 200, 100, 100);
+
+		createComboBox(topics, "topic", 100, 100, 150, 30, true);
+		createComboBox(subTopic, "subTopic", 300, 100, 150, 30, true);
+		createComboBox(subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+}

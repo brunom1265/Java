@@ -24,8 +24,8 @@ public class DefinicoesPanel extends BasePanel{
 		
 		createLabel("Utilizador: ", "utilizador", 100, 100);
 		createLabel("Password: ", "password", 100, 150);
-		createJTextArea("utilizadorLogin", "", 200, 100, 110, 30);
-		createJTextArea("passwordLogin", "", 200, 150, 110, 30);
+		createJTextArea("utilizadorLogin", "", 200, 100, 110, 30).setText("ICENine");
+		createJTextArea("passwordLogin", "", 200, 150, 110, 30).setText("650031772");
 		createButton("Entrar", "entrarLogin", 200, 200);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 

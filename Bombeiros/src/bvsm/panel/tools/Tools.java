@@ -18,8 +18,17 @@ public class Tools implements ActionListener{
 	JTable table;
 	ButtonGroup bg;
 	
+	Font font;
+	
+	Color color = Color.BLUE;
+	
 	int buttonWidth = 110;
 	int buttonHeight = 35;
+	int style = Font.BOLD | Font.ITALIC;
+
+	public Tools(){
+	 font = new Font ("Jokerman", Font.PLAIN, 20);
+	}
 	
 	public ArrayList<JButton> buttonArray = new ArrayList<JButton>();
 	ArrayList<TextField> textFieldArray = new ArrayList<TextField>();
@@ -29,6 +38,7 @@ public class Tools implements ActionListener{
 	ArrayList<Panel> panelArray = new ArrayList<Panel>();
 	ArrayList<JComboBox<String>> JComboListArray = new ArrayList<JComboBox<String>>();
 	ArrayList<JRadioButton> JRadioButtonArray = new ArrayList<JRadioButton>();
+	ArrayList<JTable> tableArray = new ArrayList<JTable>();
 	
 	public void createButton(String text, int x, int y){
 		jbutton = new JButton();
@@ -112,36 +122,41 @@ public class Tools implements ActionListener{
 		textAreaArray.add(textArea);
 	}
 	
-	public void createJTextArea(String text, int x, int y){
+	public JTextArea createJTextArea(String text, int x, int y){
 		jtextArea = new JTextArea();
 		jtextArea.setText(text);
 		jtextArea.setBounds(x, y, buttonWidth, buttonHeight);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
+		return jtextAreaArray.get(jtextAreaArray.size() - 1);
 	}
 	
-	public void createJTextArea(String text, String name, int x, int y){
+	public JTextArea createJTextArea(String text, String name, int x, int y){
 		jtextArea = new JTextArea();
 		jtextArea.setText(text);
 		jtextArea.setName(name);
 		jtextArea.setBounds(x, y, buttonWidth, buttonHeight);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
+		return jtextAreaArray.get(jtextAreaArray.size() - 1);
 	}
 	
-	public void createJTextArea(String name, String text, int x, int y, int width, int height){
+	public JTextArea createJTextArea(String name, String text, int x, int y, int width, int height){
 		jtextArea = new JTextArea();
 		jtextArea.setText(text);
 		jtextArea.setName(name);
 		jtextArea.setBounds(x, y, width, height);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
+		return jtextAreaArray.get(jtextAreaArray.size() - 1);
 	}
 	
 	public JLabel createLabel(String text, int x, int y){
 		label = new JLabel();
 		label.setText(text);
 		label.setBounds(x, y, buttonWidth, buttonHeight);
+		label.setFont(font);
+		label.setForeground(color);
 		label.setVisible(true);
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
@@ -152,6 +167,8 @@ public class Tools implements ActionListener{
 		label.setText(text);
 		label.setName(name);
 		label.setBounds(x, y, buttonWidth, buttonHeight);
+		label.setFont(font);
+		label.setForeground(color);
 		label.setVisible(true);
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
@@ -215,11 +232,27 @@ public class Tools implements ActionListener{
 		
 	}
 	
-	public JTable createTable(String[][] data, String[] columnNames){
+	public JTable createTable(String name, int rows, int columns, int x, int y, int width, int height){
 		
-		JTable table = new JTable(data, columnNames);
+		JTable table = new JTable(rows, columns);
+		table.setName(name);
+		table.setBounds(x, y, width, height);
+		table.setFillsViewportHeight(true);
+		table.setRowHeight(25);
+		tableArray.add(table);
+		return tableArray.get(tableArray.size() - 1);
+
+	}
+	
+public JTable createTable(String name, int rows, int columns, int x, int y, int width, int height, boolean visible){
 		
-		return table;
+		JTable table = new JTable(rows, columns);
+		table.setName(name);
+		table.setBounds(x, y, width, height);
+		table.setFillsViewportHeight(visible);
+		table.setRowHeight(25);
+		tableArray.add(table);
+		return tableArray.get(tableArray.size() - 1);
 
 	}
 	
@@ -252,7 +285,9 @@ public class Tools implements ActionListener{
 			panel.add(combo);
 		}
 		
-		
+		for(JTable table : tableArray){
+			panel.add(table);
+		}
 		
 		for(int i = 0; i < JRadioButtonArray.size(); i++){
 			bg.add(JRadioButtonArray.get(i));
@@ -304,6 +339,21 @@ public class Tools implements ActionListener{
 		}
 		return null;
 	}
+	
+	public JTable getTable(String name){
+		for(int i = 0; i < tableArray.size(); i++){
+			if(tableArray.get(i).getName() == name) return tableArray.get(i);
+		}
+		return null;
+	}
+	
+	
+	public JComboBox<String> getComboBox(String name){
+		for(int i = 0; i < JComboListArray.size(); i++){
+			if(JComboListArray.get(i).getName() == name) return JComboListArray.get(i);
+		}
+		return null;
+	}
 
 	public void setRadioBoxVisible(boolean visible){
 		for(int i = 0; i < JRadioButtonArray.size();i++){
@@ -318,7 +368,6 @@ public class Tools implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
