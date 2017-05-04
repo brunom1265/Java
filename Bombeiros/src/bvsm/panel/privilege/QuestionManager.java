@@ -2,6 +2,7 @@ package bvsm.panel.privilege;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,13 +18,15 @@ public class QuestionManager extends BasePanel{
 
 	protected void createComponents() {
 		
-		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
+		String[] topics = {"Incêndio", "Saúde", "Comunicações"};
 		String[] subTopic = {"Florestal", "Urbano"};
 		String[] subsubTopic = {"Extintores", "Bombas"};
 		
 		createComboBox(topics, "topic", 100, 100, 150, 30, true);
 		createComboBox(subTopic, "subTopic", 300, 100, 150, 30, true);
 		createComboBox(subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
+		
+		String[] header = {"Pergunta 1", "Pergunta 2", "Pergunta 3", "Resposta"};
 		
 		createTable("mainTable", 0, 4, 100, 250, 600, 270);
 		
@@ -34,6 +37,47 @@ public class QuestionManager extends BasePanel{
 	
 	public void actionPerformed(ActionEvent e) {
 		
+		//ComboboxManager
+		
+		String[] incendio = {"Florestal", "Urbano"};
+		String[] subFlorestal = {"Mangueiras", "Bombas"};
+		String[] subUrbano = {"Extintores"};
+		String[] saude = {"TS", "TAT", "TAS"};
+		String[] subSaude = {"SBV"};
+
+        String topic = "";
+        
+        if(e.getActionCommand() == "comboBoxChanged"){
+        	@SuppressWarnings("unchecked")
+			JComboBox<String> cb = (JComboBox<String>)e.getSource();
+            topic = (String)cb.getSelectedItem();
+        }
+        
+        if(topic == "Saúde"){
+        	updateCombo(saude, "subTopic");
+        }
+        
+        if(topic == "TS"){
+        	updateCombo(subSaude, "subsubTopic");
+        }
+        
+        if(topic == "Incêndio"){
+        	updateCombo(incendio, "subTopic");
+        }
+        
+        if(topic == "Florestal"){
+        	updateCombo(subFlorestal, "subsubTopic");
+        }
+        
+        
+        if(topic == "Urbano"){
+        	updateCombo(subUrbano, "subsubTopic");
+            System.out.println(topic);
+
+        }
+        
+        if(topic == "Sorteado"){
+        }
 	}
 
 }

@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import bvsm.panel.BasePanel;
 
@@ -37,13 +39,12 @@ public class Admin extends BasePanel{
 		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
 		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
 		
-		
+		String[] mainName = {"Username", "Password", "Tipo"};
 		createTable("mainTable", 0, 3, 100, 250, 600, 270);
 		createTable("questionTable", 0, 4, 100, 250, 600, 270, false);
 
-		
 		model = (DefaultTableModel) getTable("mainTable").getModel();
-		
+	
 		getAllUsers();
 
 	}
@@ -84,6 +85,47 @@ public class Admin extends BasePanel{
 
 			getAllUsers();
 		}
+		
+		//ComboboxManager
+		
+		String[] incendio = {"Florestal", "Urbano"};
+		String[] subFlorestal = {"Mangueiras", "Bombas"};
+		String[] subUrbano = {"Extintores"};
+		String[] saude = {"TS", "TAT", "TAS"};
+		String[] subSaude = {"SBV"};
+
+        String topic = "";
+        
+        if(e.getActionCommand() == "comboBoxChanged"){
+        	JComboBox<String> cb = (JComboBox<String>)e.getSource();
+            topic = (String)cb.getSelectedItem();
+        }
+        
+        if(topic == "Saúde"){
+        	updateCombo(saude, "subTopic");
+        }
+        
+        if(topic == "TS"){
+        	updateCombo(subSaude, "subsubTopic");
+        }
+        
+        if(topic == "Incêndio"){
+        	updateCombo(incendio, "subTopic");
+        }
+        
+        if(topic == "Florestal"){
+        	updateCombo(subFlorestal, "subsubTopic");
+        }
+        
+        
+        if(topic == "Urbano"){
+        	updateCombo(subUrbano, "subsubTopic");
+            System.out.println(topic);
+
+        }
+        
+        if(topic == "Sorteado"){
+        }
 	}
 
 	

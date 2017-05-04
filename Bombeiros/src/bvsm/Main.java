@@ -2,6 +2,7 @@ package bvsm;
 
 import javax.swing.JFrame;
 
+import bvsm.panel.LoginPanel;
 import bvsm.panel.MainPanel;
 import bvsm.panel.ToolPanel;
 import bvsm.questions.Questions;
@@ -16,6 +17,7 @@ public class Main {
 	protected JFrame toolFrame;
 	private Questions questions;
 	
+	LoginPanel loginPanel;
 	MainPanel mainPanel;
 	ToolPanel toolPanel;
 		
@@ -23,9 +25,8 @@ public class Main {
 		mainFrame = new JFrame(mFrameTitle);
 		//toolFrame = new JFrame("Tools");
 		questions = new Questions();
-		
-		mainPanel = new MainPanel(null, mainFrame, mFrameTitle, 0, 0, width, height);
-		mainPanel.setVisible(true);
+		loginPanel = new LoginPanel(null, mainFrame, mFrameTitle, 0, 0, width, height);
+		loginPanel.setVisible(true);
 		//toolPanel = new ToolPanel(null, toolFrame, "tools", 0, 0, 220, 440);
 		//toolPanel.setVisible(true);
 	

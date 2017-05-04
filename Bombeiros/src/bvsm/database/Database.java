@@ -62,6 +62,9 @@ public class Database {
 							 									   + "username varchar(60)," 
 							 									   + "password varchar(60),"
 							 									   + "type int(3),"
+							 									   + "name varchar(60),"
+							 									   + "surname varchar (60),"
+							 									   + "age integer(2),"
 							 									   + "primary key(id));");
 					 Statement state3 = con.createStatement();
 					 state3.execute("CREATE TABLE inFlorestais(id integer,"
@@ -81,8 +84,8 @@ public class Database {
 							 									   + "theme integer(20),"
 							 									   + "primary key(id));");
 					 
-					 addUser("ICENine", "650031772", 1);
-					 addUser("assim", "asdf", 2);
+					 addUser("ICENine", "650031772", 1, "Bruno", "Garcia", 23);
+					 addUser("assim", "asdf", 2, "Joana", "Madeira", 23);
 				 }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -92,17 +95,20 @@ public class Database {
 		}
 	}
 	
-	public void addUser(String username, String password, int type){
+	public void addUser(String username, String password, int type, String name, String surname, int age){
 		if(con == null){
 			connect();
 		}
 		
 		PreparedStatement prep;
 		try {
-			prep = con.prepareStatement("INSERT INTO users values(?, ?, ?, ?)");
+			prep = con.prepareStatement("INSERT INTO users values(?, ?, ?, ?, ?, ?, ?)");
 			prep.setString(2, username);
 			prep.setString(3, password);
 			prep.setInt(4, type);
+			prep.setString(5, name);
+			prep.setString(6, surname);
+			prep.setInt(7, age);
 			prep.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

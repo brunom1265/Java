@@ -16,7 +16,7 @@ public class PerguntasPanel extends BasePanel{
 				
 		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
 		String[] incendio = {"Florestal", "Urbano"};
-		String[] subTopic = {"Extintores", "Bombas"};
+		String[] subTopic = {"Extintores", "Bombas", "Mangueiras"};
 		
 		createComboBox(topics, "topic", 100, 100, 150, 30, true);
 		createComboBox(incendio, "subTopic", 300, 100, 150, 30, true);
@@ -28,13 +28,19 @@ public class PerguntasPanel extends BasePanel{
 	
 	public void actionPerformed(ActionEvent e) {
 		
+		//ComboboxManager
+		
 		String[] incendio = {"Florestal", "Urbano"};
+		String[] subFlorestal = {"Mangueiras", "Bombas"};
+		String[] subUrbano = {"Extintores"};
 		String[] saude = {"TS", "TAT", "TAS"};
+		String[] subSaude = {"SBV"};
 
         String topic = "";
         
         if(e.getActionCommand() == "comboBoxChanged"){
-        	JComboBox<String> cb = (JComboBox<String>)e.getSource();
+        	@SuppressWarnings("unchecked")
+			JComboBox<String> cb = (JComboBox<String>)e.getSource();
             topic = (String)cb.getSelectedItem();
         }
         
@@ -42,8 +48,23 @@ public class PerguntasPanel extends BasePanel{
         	updateCombo(saude, "subTopic");
         }
         
+        if(topic == "TS"){
+        	updateCombo(subSaude, "subsubTopic");
+        }
+        
         if(topic == "Incêndio"){
         	updateCombo(incendio, "subTopic");
+        }
+        
+        if(topic == "Florestal"){
+        	updateCombo(subFlorestal, "subsubTopic");
+        }
+        
+        
+        if(topic == "Urbano"){
+        	updateCombo(subUrbano, "subsubTopic");
+            System.out.println(topic);
+
         }
         
         if(topic == "Sorteado"){
@@ -69,4 +90,5 @@ public class PerguntasPanel extends BasePanel{
 		createRadioButton("Answer3", 100, 400, 400, 40, false);
 		
 	}
+	
 }

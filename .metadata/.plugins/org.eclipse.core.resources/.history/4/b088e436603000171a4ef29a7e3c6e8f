@@ -1,0 +1,31 @@
+package bvsm.users;
+
+public class Users {
+	String name, surname, username, password;
+	int age;
+	
+	protected void setName(String name){
+		this.name = name;
+	}
+	
+	protected void setSurname(String name){
+		this.surname = surname;
+	}
+	
+	protected void setAge(String name){
+		this.age = age;
+	}
+	
+	protected String getName(){
+		return name;
+	}
+	
+	protected String getSurname(){
+		return surname;
+	}
+	
+	protected int age(){
+		return age;
+	}
+	
+}

@@ -16,6 +16,7 @@ public abstract class BasePanel extends Tools{
 	public Database db = new Database();
 	public BasePanel previous;
 	
+
 	public BasePanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height){
 
 		images = new GetImages();
@@ -30,12 +31,13 @@ public abstract class BasePanel extends Tools{
 		jpanel.setLayout(null);
 		jpanel.setVisible(false);
 		frame.add(jpanel);
-
+		
 	}
 	
 	protected void createComponents(){
 		
 	}
+	
 	public void setVisible(boolean visible){
 		jpanel.setVisible(visible);
 	}

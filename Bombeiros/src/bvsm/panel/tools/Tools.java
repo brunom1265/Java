@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 
 public class Tools implements ActionListener{
 	JButton jbutton;
@@ -19,9 +20,8 @@ public class Tools implements ActionListener{
 	ButtonGroup bg;
 	
 	Font font;
-	
-	Color color = Color.BLUE;
-	
+	Color color = Color.BLACK;
+		
 	int buttonWidth = 110;
 	int buttonHeight = 35;
 	int style = Font.BOLD | Font.ITALIC;
@@ -175,11 +175,13 @@ public class Tools implements ActionListener{
 
 	}
 	
-	public JLabel createLabel(String name, String text, int x, int y, int width, int height){
+	public JLabel createLabel(String text, String name, int x, int y, int width, int height){
 		label = new JLabel();
 		label.setText(text);
 		label.setName(name);
 		label.setBounds(x, y, width, height);
+		label.setFont(font);
+		label.setForeground(color);
 		label.setVisible(true);
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
@@ -238,7 +240,8 @@ public class Tools implements ActionListener{
 		table.setName(name);
 		table.setBounds(x, y, width, height);
 		table.setFillsViewportHeight(true);
-		table.setRowHeight(25);
+		table.setRowHeight(25);	
+		
 		tableArray.add(table);
 		return tableArray.get(tableArray.size() - 1);
 
