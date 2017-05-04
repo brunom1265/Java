@@ -31,7 +31,6 @@ public class MainPanel extends BasePanel{
 	}
 	
 	protected void createComponents(){
-		createLabel(700, 0, 300,300, images.getImage("Bombeiros"));
 		createLabel("", "Name", 50, 50, 220, 35);
 		createLabel("Versão Alpha 0.01 ", "versão", 700, 600, 220, 35);
 		createButton("Matéria", 100, 100);

@@ -51,7 +51,6 @@
 <fullyQualifiedTypeName name="bvsm.database.Database"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
 <fullyQualifiedTypeName name="bvsm.panel.LoginPanel"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="bvsm.panel.privilege.QuestionManager"/>
 <fullyQualifiedTypeName name="javax.swing.table.TableColumn"/>
 <fullyQualifiedTypeName name="javax.swing.table.TableColumnModel"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

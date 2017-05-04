@@ -1,5 +1,6 @@
 package bvsm.panel.privilege;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import bvsm.panel.BasePanel;
 
@@ -26,6 +26,7 @@ public class Admin extends BasePanel{
 	protected void createComponents() {
 		createButton("Utilizadores", 100, 100);
 		createButton("Perguntas", 230, 100);
+		createButton("Novo Utilizador", 100, 550, 130, 35);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createLabel("Utilizador: ", "labelUtilizador", 100, 175);
 		createJTextArea("textUtilizador", "", 200, 175, 300, 35);
@@ -38,22 +39,23 @@ public class Admin extends BasePanel{
 		createComboBox(topics, "topic", 100, 180, 150, 30, false);
 		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
 		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
-		
+				
 		String[] mainName = {"Username", "Password", "Tipo"};
-		createTable("mainTable", 0, 3, 100, 250, 600, 270);
-		createTable("questionTable", 0, 4, 100, 250, 600, 270, false);
-
-		model = (DefaultTableModel) getTable("mainTable").getModel();
+		
+		createPanel("mainPanel", 100, 250, 600, 270);
+		
+		getPanel("mainPanel").add(createTable("mainTable", 0, 3, 600, 270, true));
+		getPanel("mainPanel").add(createTable("questionTable", 0, 4, 600, 270, true));
+		
+		
+		model = (DefaultTableModel) getPanelTable("mainTable").getModel();
+		
 	
 		getAllUsers();
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand() == "Voltar"){
-			setVisible(false);
-			previous.setVisible(true);
-		}
 		
 		if(e.getActionCommand() == "Perguntas"){
 			
@@ -66,8 +68,8 @@ public class Admin extends BasePanel{
 			getTextArea("textUtilizador").setVisible(false);
 			getButton("Procurar").setVisible(false);
 			
-			getTable("mainTable").setVisible(false);
-			getTable("questionTable").setVisible(true);
+			getPanelTable("mainTable").setVisible(false);
+			getPanelTable("questionTable").setVisible(true);
 
 		}
 		
@@ -80,14 +82,22 @@ public class Admin extends BasePanel{
 			getTextArea("textUtilizador").setVisible(true);
 			getButton("Procurar").setVisible(true);
 			
-			getTable("mainTable").setVisible(true);
-			getTable("questionTable").setVisible(false);
+			getPanelTable("mainTable").setVisible(true);
+			getPanelTable("questionTable").setVisible(false);
 
 			getAllUsers();
 		}
 		
-		//ComboboxManager
+		if(e.getActionCommand() == "Voltar"){
+			setVisible(false);
+			previous.setVisible(true);
+		}
 		
+		if(e.getActionCommand() == "Novo Utilizador"){
+			
+		}
+		
+				
 		String[] incendio = {"Florestal", "Urbano"};
 		String[] subFlorestal = {"Mangueiras", "Bombas"};
 		String[] subUrbano = {"Extintores"};

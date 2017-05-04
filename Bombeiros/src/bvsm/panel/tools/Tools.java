@@ -14,7 +14,7 @@ public class Tools implements ActionListener{
 	TextArea textArea;
 	JTextArea jtextArea;
 	JLabel label;
-	Panel panel;
+	JPanel panel;
 	JComboBox<String> combo;
 	JTable table;
 	ButtonGroup bg;
@@ -35,16 +35,27 @@ public class Tools implements ActionListener{
 	ArrayList<TextArea> textAreaArray = new ArrayList<TextArea>();
 	ArrayList<JTextArea> jtextAreaArray = new ArrayList<JTextArea>();
 	ArrayList<JLabel> labelArray = new ArrayList<JLabel>();
-	ArrayList<Panel> panelArray = new ArrayList<Panel>();
+	ArrayList<JPanel> panelArray = new ArrayList<JPanel>();
 	ArrayList<JComboBox<String>> JComboListArray = new ArrayList<JComboBox<String>>();
 	ArrayList<JRadioButton> JRadioButtonArray = new ArrayList<JRadioButton>();
 	ArrayList<JTable> tableArray = new ArrayList<JTable>();
+	ArrayList<JTable> panelTableArray = new ArrayList<JTable>();
 	
 	public void createButton(String text, int x, int y){
 		jbutton = new JButton();
 		jbutton.setText(text);
 		jbutton.setName(text);
 		jbutton.setBounds(x, y, buttonWidth, buttonHeight);
+		jbutton.addActionListener(this);
+		jbutton.setVisible(true);
+		buttonArray.add(jbutton);
+	}
+	
+	public void createButton(String text, int x, int y, int width, int height){
+		jbutton = new JButton();
+		jbutton.setText(text);
+		jbutton.setName(text);
+		jbutton.setBounds(x, y, width, height);
 		jbutton.addActionListener(this);
 		jbutton.setVisible(true);
 		buttonArray.add(jbutton);
@@ -196,11 +207,12 @@ public class Tools implements ActionListener{
 		return labelArray.get(labelArray.size() - 1);
 	}
 	
-	public Panel createPanel(String name, int x, int y, int width, int height){
-		panel = new Panel();
+	public JPanel createPanel(String name, int x, int y, int width, int height){
+		panel = new JPanel();
 		panel.setBounds(x, y, width, height);
 		panel.setName(name);
 		panel.setVisible(true);
+		panel.setLayout(null);
 		panelArray.add(panel);
 		return panelArray.get(panelArray.size() - 1);
 	}
@@ -234,6 +246,19 @@ public class Tools implements ActionListener{
 		
 	}
 	
+	public JTable createTable(String name, int rows, int columns, int width, int height, boolean visible){
+		
+		JTable table = new JTable(rows, columns);
+		table.setName(name);
+		table.setVisible(visible);
+		table.setBounds(0, 0, width, height);
+		table.setFillsViewportHeight(true);
+		table.setRowHeight(25);
+		panelTableArray.add(table);
+		return panelTableArray.get(panelTableArray.size() - 1);
+
+	}
+	
 	public JTable createTable(String name, int rows, int columns, int x, int y, int width, int height){
 		
 		JTable table = new JTable(rows, columns);
@@ -241,13 +266,12 @@ public class Tools implements ActionListener{
 		table.setBounds(x, y, width, height);
 		table.setFillsViewportHeight(true);
 		table.setRowHeight(25);	
-		
 		tableArray.add(table);
 		return tableArray.get(tableArray.size() - 1);
 
 	}
 	
-public JTable createTable(String name, int rows, int columns, int x, int y, int width, int height, boolean visible){
+	public JTable createTable(String name, int rows, int columns, int x, int y, int width, int height, boolean visible){
 		
 		JTable table = new JTable(rows, columns);
 		table.setName(name);
@@ -280,16 +304,16 @@ public JTable createTable(String name, int rows, int columns, int x, int y, int 
 			panel.add(label);
 		}
 		
-		for(Panel panel1 : panelArray){
+		for(JPanel panel1 : panelArray){
 			panel.add(panel1);
-		}
-		
-		for(JComboBox<String> combo : JComboListArray){
-			panel.add(combo);
 		}
 		
 		for(JTable table : tableArray){
 			panel.add(table);
+		}
+		
+		for(JComboBox<String> combo : JComboListArray){
+			panel.add(combo);
 		}
 		
 		for(int i = 0; i < JRadioButtonArray.size(); i++){
@@ -336,7 +360,7 @@ public JTable createTable(String name, int rows, int columns, int x, int y, int 
 		return null;
 	}
 	
-	public Panel getPanel(String name){
+	public JPanel getPanel(String name){
 		for(int i = 0; i < panelArray.size(); i++){
 			if(panelArray.get(i).getName() == name) return panelArray.get(i);
 		}
@@ -347,9 +371,16 @@ public JTable createTable(String name, int rows, int columns, int x, int y, int 
 		for(int i = 0; i < tableArray.size(); i++){
 			if(tableArray.get(i).getName() == name) return tableArray.get(i);
 		}
+		
 		return null;
 	}
 	
+	public JTable getPanelTable(String name){
+		for(int i = 0; i < panelTableArray.size(); i++){
+			if(panelTableArray.get(i).getName() == name) return panelTableArray.get(i);
+		}
+		return null;
+	}
 	
 	public JComboBox<String> getComboBox(String name){
 		for(int i = 0; i < JComboListArray.size(); i++){

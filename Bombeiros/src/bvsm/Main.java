@@ -10,7 +10,7 @@ import bvsm.questions.Questions;
 public class Main {
 	
 	private String mFrameTitle = "Bombeiros Voluntários de Salvaterra de Magos";
-	private static final int width = 1024;
+	private static final int width = 1104;
 	private static final int height = 720;
 	
 	protected JFrame mainFrame;

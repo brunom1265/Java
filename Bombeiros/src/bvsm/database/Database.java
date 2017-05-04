@@ -68,18 +68,20 @@ public class Database {
 							 									   + "primary key(id));");
 					 Statement state3 = con.createStatement();
 					 state3.execute("CREATE TABLE inFlorestais(id integer,"
-							 									   + "q1 varchar(120)," 
-							 									   + "q2 varchar(120),"
-							 									   + "q3 varchar(120),"
+							 									   + "q1 varchar(120),"
+							 									   + "a1 varchar(120)," 
+							 									   + "a2 varchar(120),"
+							 									   + "a3 varchar(120),"
 							 									   + "rq integer(3),"
 							 									   + "theme integer(20),"
 							 									   + "primary key(id));");
 					 
 					 Statement state4 = con.createStatement();
 					 state4.execute("CREATE TABLE inUrbanos(id integer,"
-							 									   + "q1 varchar(120)," 
-							 									   + "q2 varchar(120),"
-							 									   + "q3 varchar(120),"
+																   + "q1 varchar(120),"
+																   + "a1 varchar(120)," 
+																   + "a2 varchar(120),"
+																   + "a3 varchar(120),"
 							 									   + "rq integer(3),"
 							 									   + "theme integer(20),"
 							 									   + "primary key(id));");
@@ -142,12 +144,13 @@ public class Database {
 		return res;
 	}
 	
-	public void insertQuestion(String theme, String q1, String q2, String q3, int rQ){
+	public void insertQuestion(String theme, String q1, String a1, String a2, String a3, int rQ){
 		try {
-			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?)");
+			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?, ?)");
 			prep.setString(2, q1);
-			prep.setString(3, q2);
-			prep.setString(4, q3);
+			prep.setString(3, a1);
+			prep.setString(4, a2);
+			prep.setString(5, a3);
 			prep.setInt(5, rQ);
 			prep.setString(6, theme);
 			prep.execute();
