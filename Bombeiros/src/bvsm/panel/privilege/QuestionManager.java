@@ -7,10 +7,17 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 import bvsm.panel.BasePanel;
+import bvsm.panel.tools.ComboBoxManager;
 
 public class QuestionManager extends BasePanel{
 
 	DefaultTableModel model;
+	
+	ComboBoxManager cbm;
+
+	protected String[] topics = {"Incêndio", "Saúde", "Comunicações"};
+	protected String[] subTopic = {"Florestal", "Urbano"};
+	protected String[] subsubTopic = {"Extintores", "Bombas"};
 	
 	public QuestionManager(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -18,13 +25,11 @@ public class QuestionManager extends BasePanel{
 
 	protected void createComponents() {
 		
-		String[] topics = {"Incêndio", "Saúde", "Comunicações"};
-		String[] subTopic = {"Florestal", "Urbano"};
-		String[] subsubTopic = {"Extintores", "Bombas"};
-		
-		createComboBox(topics, "topic", 100, 100, 150, 30, true);
-		createComboBox(subTopic, "subTopic", 300, 100, 150, 30, true);
-		createComboBox(subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
+		cbm = new ComboBoxManager(topics, subTopic, subsubTopic);
+
+		createComboBox(cbm.topic, "topic", 100, 100, 150, 30, true);
+		createComboBox(cbm.subTopic, "subTopic", 300, 100, 150, 30, true);
+		createComboBox(cbm.subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
 		
 		String[] header = {"Pergunta 1", "Pergunta 2", "Pergunta 3", "Resposta"};
 		
@@ -51,32 +56,6 @@ public class QuestionManager extends BasePanel{
         	@SuppressWarnings("unchecked")
 			JComboBox<String> cb = (JComboBox<String>)e.getSource();
             topic = (String)cb.getSelectedItem();
-        }
-        
-        if(topic == "Saúde"){
-        	updateCombo(saude, "subTopic");
-        }
-        
-        if(topic == "TS"){
-        	updateCombo(subSaude, "subsubTopic");
-        }
-        
-        if(topic == "Incêndio"){
-        	updateCombo(incendio, "subTopic");
-        }
-        
-        if(topic == "Florestal"){
-        	updateCombo(subFlorestal, "subsubTopic");
-        }
-        
-        
-        if(topic == "Urbano"){
-        	updateCombo(subUrbano, "subsubTopic");
-            System.out.println(topic);
-
-        }
-        
-        if(topic == "Sorteado"){
         }
 	}
 

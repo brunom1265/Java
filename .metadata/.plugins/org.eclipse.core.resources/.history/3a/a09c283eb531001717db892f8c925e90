@@ -1,0 +1,15 @@
+package bvsm.panel.tools;
+
+import javax.swing.JComboBox;
+
+public class ComboBoxManager {
+	
+	public static String[] topics = {"Incêndio", "Saúde", "Comunicações"};
+	public static String[] subTopic = {"Florestal", "Urbano"};
+	public static String[] subsubTopic = {"Extintores", "Bombas"};
+	
+	public void comboChooser(JComboBox<String> topic, JComboBox<String> subTopic, JComboBox<String> subsubTopic){
+
+	}
+	
+}

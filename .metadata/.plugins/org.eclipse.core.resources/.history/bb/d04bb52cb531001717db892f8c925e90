@@ -1,0 +1,10 @@
+package bvsm.panel.tools;
+
+public class ComboBoxManager {
+	
+	public static String[] topics = {"Incêndio", "Saúde", "Comunicações"};
+	public static String[] subTopic = {"Florestal", "Urbano"};
+	public static String[] subsubTopic = {"Extintores", "Bombas"};
+	
+	
+}

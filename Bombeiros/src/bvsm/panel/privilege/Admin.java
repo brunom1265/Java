@@ -110,32 +110,6 @@ public class Admin extends BasePanel{
         	JComboBox<String> cb = (JComboBox<String>)e.getSource();
             topic = (String)cb.getSelectedItem();
         }
-        
-        if(topic == "Saúde"){
-        	updateCombo(saude, "subTopic");
-        }
-        
-        if(topic == "TS"){
-        	updateCombo(subSaude, "subsubTopic");
-        }
-        
-        if(topic == "Incêndio"){
-        	updateCombo(incendio, "subTopic");
-        }
-        
-        if(topic == "Florestal"){
-        	updateCombo(subFlorestal, "subsubTopic");
-        }
-        
-        
-        if(topic == "Urbano"){
-        	updateCombo(subUrbano, "subsubTopic");
-            System.out.println(topic);
-
-        }
-        
-        if(topic == "Sorteado"){
-        }
 	}
 
 	

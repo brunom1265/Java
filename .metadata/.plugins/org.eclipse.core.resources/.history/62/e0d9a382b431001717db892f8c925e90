@@ -1,0 +1,7 @@
+package bvsm.panel.tools;
+
+public class ComboBoxManager {
+	
+	public static String topic, subTopic, subsubTopic; 
+	
+}
