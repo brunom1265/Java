@@ -1,29 +1,40 @@
 package bvsm.panel.privilege;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 import bvsm.panel.BasePanel;
+import bvsm.panel.tools.ComboBoxManager;
 
 public class Admin extends BasePanel{
-
-	ArrayList<String> usersInfo = new ArrayList<>();
-	ArrayList<String> passwordInfo = new ArrayList<>();
 		
 	DefaultTableModel model;
 	
+	ComboBoxManager cbm;
+	
+	String p = "";
+		
 	public Admin(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents() {
+		
+		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
+		String[][] subTopic = {{"Florestal", "Urbano"},
+							   {"TS", "TAT", "TAS"}};
+		
+		String[][] subsubTopic = {{"Extintores", "Bombas"},
+								  {"Extintores", "Bombas"},
+								  {"SBV"}};
+		
+		cbm = new ComboBoxManager(this, topic, subTopic, subsubTopic);
+		
 		createButton("Utilizadores", 100, 100);
 		createButton("Perguntas", 230, 100);
 		createButton("Novo Utilizador", 100, 550, 130, 35);
@@ -32,11 +43,7 @@ public class Admin extends BasePanel{
 		createJTextArea("textUtilizador", "", 200, 175, 300, 35);
 		createButton("Procurar", 550, 175);
 		
-		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
-		String[] subTopic = {"Florestal", "Urbano"};
-		String[] subsubTopic = {"Extintores", "Bombas"};
-		
-		createComboBox(topics, "topic", 100, 180, 150, 30, false);
+		createComboBox(topic, "topic", 100, 180, 150, 30, false);
 		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
 		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
 				
@@ -101,14 +108,13 @@ public class Admin extends BasePanel{
 		String[] incendio = {"Florestal", "Urbano"};
 		String[] subFlorestal = {"Mangueiras", "Bombas"};
 		String[] subUrbano = {"Extintores"};
-		String[] saude = {"TS", "TAT", "TAS"};
-		String[] subSaude = {"SBV"};
 
-        String topic = "";
         
+
         if(e.getActionCommand() == "comboBoxChanged"){
-        	JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            topic = (String)cb.getSelectedItem();
+
+        	cbm.comboChooser(getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+
         }
 	}
 

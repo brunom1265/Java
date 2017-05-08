@@ -217,17 +217,16 @@ public class Tools implements ActionListener{
 		return panelArray.get(panelArray.size() - 1);
 	}
 	
-	public JComboBox<String> createComboBox(String[] list, String name, int x, int y, int width, int height, boolean visible){
+	public JComboBox<String> createComboBox(String[][] list, String name, int x, int y, int width, int height, boolean visible){
 		combo = new JComboBox<String>();
 		combo.setName(name);
 		combo.setBounds(x, y, width, height);
 		combo.setVisible(visible);
-			for(int xIndex = 0; xIndex < list.length; xIndex++){
-				System.out.println(list.length);
-
-				combo.addItem(list[xIndex]);
-				combo.addActionListener(this);
-		}
+		
+			for(int yIndex = 0; yIndex < list[0].length; yIndex++){
+				combo.addItem(list[0][yIndex]);
+			}
+		combo.addActionListener(this);
 		
 		JComboListArray.add(combo);
 		return combo;
@@ -325,18 +324,14 @@ public class Tools implements ActionListener{
 		}		
 	}
 	
-	public void updateCombo(String[] list, String cbName){
-		JComboBox<String> cb;
-		for(int i = 0; i < JComboListArray.size(); i++){
-			if(JComboListArray.get(i).getName() == cbName){
-				cb = JComboListArray.get(i);
-				cb.removeAllItems();
-				for(int x = 0; x < list.length; x++){
-					cb.addItem(list[x]);
-				}
-				break;
-			}
+	public void updateCombo(JComboBox<String> cb, String[] list){
+
+		cb.removeAllItems();
+		
+			for(int x = 0; x < list.length; x++){
+				cb.addItem(list[x]);
 		}
+		
 	}
 	
 	public JButton getButton(String name){

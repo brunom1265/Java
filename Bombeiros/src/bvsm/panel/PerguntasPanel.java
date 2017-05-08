@@ -5,8 +5,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
+import bvsm.panel.tools.ComboBoxManager;
+
 public class PerguntasPanel extends BasePanel{
 	
+	ComboBoxManager cbm;
 	
 	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -14,22 +17,25 @@ public class PerguntasPanel extends BasePanel{
 
 	protected void createComponents(){
 				
-		String[] topics = {"Incêndio", "Saúde", "Comunicações", "Sorteado"};
-		String[] incendio = {"Florestal", "Urbano"};
-		String[] subTopic = {"Extintores", "Bombas", "Mangueiras"};
+		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
+		String[][] subTopic = {{"Florestal", "Urbano"},
+							   {"TS", "TAT", "TAS"}};
 		
-		createComboBox(topics, "topic", 100, 100, 150, 30, true);
-		createComboBox(incendio, "subTopic", 300, 100, 150, 30, true);
-		createComboBox(subTopic, "subsubTopic", 500, 100, 150, 30, true);
+		String[][] subsubTopic = {{"Extintores", "Bombas"},
+								  {"SBV"}};
+		
+		cbm = new ComboBoxManager(this, topic, subTopic, subsubTopic);
+		
+		createComboBox(cbm.topic, "topic", 100, 100, 150, 30, true);
+		createComboBox(cbm.subTopic, "subTopic", 300, 100, 150, 30, true);
+		createComboBox(cbm.subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
 		createButton("Iniciar teste", "iniciar", 100, 200);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createQuestionArea();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
-		//ComboboxManager
-		
+				
 		String[] incendio = {"Florestal", "Urbano"};
 		String[] subFlorestal = {"Mangueiras", "Bombas"};
 		String[] subUrbano = {"Extintores"};
@@ -39,35 +45,7 @@ public class PerguntasPanel extends BasePanel{
         String topic = "";
         
         if(e.getActionCommand() == "comboBoxChanged"){
-        	@SuppressWarnings("unchecked")
-			JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            topic = (String)cb.getSelectedItem();
-        }
-        
-        if(topic == "Saúde"){
-        	updateCombo(saude, "subTopic");
-        }
-        
-        if(topic == "TS"){
-        	updateCombo(subSaude, "subsubTopic");
-        }
-        
-        if(topic == "Incêndio"){
-        	updateCombo(incendio, "subTopic");
-        }
-        
-        if(topic == "Florestal"){
-        	updateCombo(subFlorestal, "subsubTopic");
-        }
-        
-        
-        if(topic == "Urbano"){
-        	updateCombo(subUrbano, "subsubTopic");
-            System.out.println(topic);
-
-        }
-        
-        if(topic == "Sorteado"){
+        	cbm.comboChooser(getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
         }
         
 		if(e.getActionCommand() == "Iniciar teste"){

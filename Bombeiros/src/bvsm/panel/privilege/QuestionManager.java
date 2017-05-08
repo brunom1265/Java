@@ -14,10 +14,6 @@ public class QuestionManager extends BasePanel{
 	DefaultTableModel model;
 	
 	ComboBoxManager cbm;
-
-	protected String[] topics = {"Incêndio", "Saúde", "Comunicações"};
-	protected String[] subTopic = {"Florestal", "Urbano"};
-	protected String[] subsubTopic = {"Extintores", "Bombas"};
 	
 	public QuestionManager(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -25,7 +21,14 @@ public class QuestionManager extends BasePanel{
 
 	protected void createComponents() {
 		
-		cbm = new ComboBoxManager(topics, subTopic, subsubTopic);
+		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
+		String[][] subTopic = {{"Florestal", "Urbano"},
+		   {"TS", "TAT", "TAS"}};
+
+		String[][] subsubTopic = {{"Extintores", "Bombas"},
+			  {"SBV"}};
+		
+		cbm = new ComboBoxManager(this, topic, subTopic, subsubTopic);
 
 		createComboBox(cbm.topic, "topic", 100, 100, 150, 30, true);
 		createComboBox(cbm.subTopic, "subTopic", 300, 100, 150, 30, true);
@@ -53,9 +56,7 @@ public class QuestionManager extends BasePanel{
         String topic = "";
         
         if(e.getActionCommand() == "comboBoxChanged"){
-        	@SuppressWarnings("unchecked")
-			JComboBox<String> cb = (JComboBox<String>)e.getSource();
-            topic = (String)cb.getSelectedItem();
+        	cbm.comboChooser(getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
         }
 	}
 

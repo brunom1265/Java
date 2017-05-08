@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="org.lwjgl.system.MemoryUtil"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWVidMode"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWKeyCallbackI"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.lwjgl.opengl.GL"/>
 <fullyQualifiedTypeName name="com.im.out.util.ShaderUtils"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFW"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="javax.swing.table.TableColumnModel"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
