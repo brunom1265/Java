@@ -1,6 +1,7 @@
 package bvsm.panel.privilege;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,14 +27,16 @@ public class Admin extends BasePanel{
 	protected void createComponents() {
 		
 		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
+		
 		String[][] subTopic = {{"Florestal", "Urbano"},
-							   {"TS", "TAT", "TAS"}};
+							   {"TS", "TAT", "TAS"},
+							   {"Radios"}};
 		
-		String[][] subsubTopic = {{"Extintores", "Bombas"},
-								  {"Extintores", "Bombas"},
-								  {"SBV"}};
+		String[][][] subsubTopic = {{{"Extintores", "Bombas"}, {"EPI", "Hidrantes"}, {"EPI", "Hidrantes"}},
+								  {{"SBV", "PCR"}, {"1", "2"}},
+								  {{"Tipos"}}};
 		
-		cbm = new ComboBoxManager(this, topic, subTopic, subsubTopic);
+		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 		
 		createButton("Utilizadores", 100, 100);
 		createButton("Perguntas", 230, 100);
@@ -62,6 +65,7 @@ public class Admin extends BasePanel{
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand() == "Perguntas"){
@@ -110,14 +114,13 @@ public class Admin extends BasePanel{
 		String[] subUrbano = {"Extintores"};
 
         
-
         if(e.getActionCommand() == "comboBoxChanged"){
-
-        	cbm.comboChooser(getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
-
+    		JComboBox<String> cb = (JComboBox<String>) e.getSource();
+    		if(cb.isPopupVisible()){
+    			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+    		}
         }
 	}
-
 	
 	private void getAllUsers(){
 		

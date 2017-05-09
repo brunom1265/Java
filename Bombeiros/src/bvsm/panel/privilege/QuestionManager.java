@@ -25,10 +25,11 @@ public class QuestionManager extends BasePanel{
 		String[][] subTopic = {{"Florestal", "Urbano"},
 		   {"TS", "TAT", "TAS"}};
 
-		String[][] subsubTopic = {{"Extintores", "Bombas"},
-			  {"SBV"}};
+		String[][][] subsubTopic = {{{"Extintores", "Bombas"}},
+				  {{"EPI", "Hidrantes"}},
+				  {{"SBV"}}};
 		
-		cbm = new ComboBoxManager(this, topic, subTopic, subsubTopic);
+		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
 		createComboBox(cbm.topic, "topic", 100, 100, 150, 30, true);
 		createComboBox(cbm.subTopic, "subTopic", 300, 100, 150, 30, true);
@@ -54,10 +55,6 @@ public class QuestionManager extends BasePanel{
 		String[] subSaude = {"SBV"};
 
         String topic = "";
-        
-        if(e.getActionCommand() == "comboBoxChanged"){
-        	cbm.comboChooser(getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
-        }
 	}
 
 }

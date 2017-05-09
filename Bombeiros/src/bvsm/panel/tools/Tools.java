@@ -3,12 +3,14 @@ package bvsm.panel.tools;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 
-public class Tools implements ActionListener{
+public class Tools implements ActionListener, ItemListener{
 	JButton jbutton;
 	TextField textField;
 	TextArea textArea;
@@ -227,7 +229,20 @@ public class Tools implements ActionListener{
 				combo.addItem(list[0][yIndex]);
 			}
 		combo.addActionListener(this);
+		JComboListArray.add(combo);
+		return combo;
+	}
+	
+	public JComboBox<String> createComboBox(String[][][] list, String name, int x, int y, int width, int height, boolean visible){
+		combo = new JComboBox<String>();
+		combo.setName(name);
+		combo.setBounds(x, y, width, height);
+		combo.setVisible(visible);
 		
+			for(int yIndex = 0; yIndex < list[0][0].length; yIndex++){
+				combo.addItem(list[0][0][yIndex]);
+			}
+		combo.addActionListener(this);	
 		JComboListArray.add(combo);
 		return combo;
 	}
@@ -327,8 +342,7 @@ public class Tools implements ActionListener{
 	public void updateCombo(JComboBox<String> cb, String[] list){
 
 		cb.removeAllItems();
-		
-			for(int x = 0; x < list.length; x++){
+		for(int x = 0; x < list.length; x++){
 				cb.addItem(list[x]);
 		}
 		
@@ -400,5 +414,9 @@ public class Tools implements ActionListener{
 	
 	public void actionPerformed(ActionEvent arg0) {
 
+	}
+
+	public void itemStateChanged(ItemEvent e) {
+		
 	}
 }
