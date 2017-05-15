@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import bvsm.database.Database;
 import bvsm.images.GetImages;
+import bvsm.panel.tools.ComboBoxManager;
 import bvsm.panel.tools.Tools;
 
 public abstract class BasePanel extends Tools{
@@ -15,6 +16,8 @@ public abstract class BasePanel extends Tools{
 	protected GetImages images;
 	public Database db = new Database();
 	public BasePanel previous;
+	protected ComboBoxManager cbm;
+
 	
 
 	public BasePanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height){

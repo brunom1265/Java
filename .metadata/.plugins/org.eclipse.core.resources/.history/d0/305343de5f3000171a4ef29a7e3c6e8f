@@ -1,7 +1,0 @@
-package bvsm.users;
-
-public class Users {
-	String Name, surname, username, password;
-	int age;
-	
-}

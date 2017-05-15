@@ -1,5 +1,0 @@
-package bvsm.panel;
-
-public class DefinitionPanel extends BasePanel{
-
-}

@@ -20,7 +20,7 @@ public class Database {
 		connect();
 		try {
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT q1, q2, q3 FROM inFlorestais");
+			ResultSet res = state.executeQuery("SELECT * FROM inFlorestal");
 			return res;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -46,7 +46,6 @@ public class Database {
 	}
 
 	private void initialise() {
-		
 		if(!hasData){
 			 hasData = true;
 			try {
@@ -67,13 +66,13 @@ public class Database {
 							 									   + "age integer(2),"
 							 									   + "primary key(id));");
 					 Statement state3 = con.createStatement();
-					 state3.execute("CREATE TABLE inFlorestais(id integer,"
+					 state3.execute("CREATE TABLE inFlorestal(id integer,"
 							 									   + "q1 varchar(120),"
 							 									   + "a1 varchar(120)," 
 							 									   + "a2 varchar(120),"
 							 									   + "a3 varchar(120),"
-							 									   + "rq integer(3),"
 							 									   + "theme integer(20),"
+							 									   + "type integer(20),"
 							 									   + "primary key(id));");
 					 
 					 Statement state4 = con.createStatement();
@@ -82,12 +81,13 @@ public class Database {
 																   + "a1 varchar(120)," 
 																   + "a2 varchar(120),"
 																   + "a3 varchar(120),"
-							 									   + "rq integer(3),"
-							 									   + "theme integer(20),"
+							 									   + "theme varchar(60),"
+							 									   + "type integer(20),"
 							 									   + "primary key(id));");
 					 
 					 addUser("ICENine", "650031772", 1, "Bruno", "Garcia", 23);
 					 addUser("assim", "asdf", 2, "Joana", "Madeira", 23);
+					 insertQuestion("1", "2", "3", "4", "inFlorestal", 1);
 				 }
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -98,9 +98,7 @@ public class Database {
 	}
 	
 	public void addUser(String username, String password, int type, String name, String surname, int age){
-		if(con == null){
-			connect();
-		}
+		connect();
 		
 		PreparedStatement prep;
 		try {
@@ -118,9 +116,7 @@ public class Database {
 	}
 	
 	public ResultSet getUser(String username, String password) throws SQLException{
-		if(con == null){
 			connect();
-		}
 
 		Statement state = con.createStatement();
 
@@ -133,9 +129,7 @@ public class Database {
 	}
 	
 	public ResultSet getUsers() throws SQLException{
-		if(con == null){
 			connect();
-		}
 		
 		Statement state = con.createStatement();
 		
@@ -144,20 +138,39 @@ public class Database {
 		return res;
 	}
 	
-	public void insertQuestion(String theme, String q1, String a1, String a2, String a3, int rQ){
+	public void insertQuestion(String q1, String a1, String a2, String a3, String theme, int type){
+		
+		connect();
+		
 		try {
-			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?, ?)");
+			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?, ?, ?)");
 			prep.setString(2, q1);
 			prep.setString(3, a1);
 			prep.setString(4, a2);
 			prep.setString(5, a3);
-			prep.setInt(5, rQ);
 			prep.setString(6, theme);
+			prep.setInt(7, type);
+
 			prep.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public ResultSet getQuestions(String tableName, String theme) throws SQLException{
+		
+		connect();
+		
+		if(tableName != "Variadas"){
+			
+			connect();
+			
+			Statement state = con.createStatement();
+			
+			ResultSet res = state.executeQuery("SELECT " + tableName + "FROM users WHERE theme='" + theme + "'");
+			
+			return res;
+			}
+		return null;
+	}
 }

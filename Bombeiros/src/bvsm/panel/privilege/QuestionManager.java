@@ -13,7 +13,6 @@ public class QuestionManager extends BasePanel{
 
 	DefaultTableModel model;
 	
-	ComboBoxManager cbm;
 	
 	public QuestionManager(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -22,12 +21,14 @@ public class QuestionManager extends BasePanel{
 	protected void createComponents() {
 		
 		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
+		
 		String[][] subTopic = {{"Florestal", "Urbano"},
-		   {"TS", "TAT", "TAS"}};
-
-		String[][][] subsubTopic = {{{"Extintores", "Bombas"}},
-				  {{"EPI", "Hidrantes"}},
-				  {{"SBV"}}};
+							   {"TS", "TAT", "TAS"},
+							   {"Radios"}};
+		
+		String[][][] subsubTopic = {{{"Extintores", "Bombas"}, {"EPI", "Hidrantes"}, {"EPI", "Hidrantes"}},
+								  {{"SBV", "PCR"}, {"1", "2"}},
+								  {{"Tipos"}}};
 		
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
@@ -45,16 +46,12 @@ public class QuestionManager extends BasePanel{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
-		//ComboboxManager
-		
-		String[] incendio = {"Florestal", "Urbano"};
-		String[] subFlorestal = {"Mangueiras", "Bombas"};
-		String[] subUrbano = {"Extintores"};
-		String[] saude = {"TS", "TAT", "TAS"};
-		String[] subSaude = {"SBV"};
-
-        String topic = "";
+		if(e.getActionCommand() == "comboBoxChanged"){
+    		JComboBox<String> cb = (JComboBox<String>) e.getSource();
+    		if(cb.isPopupVisible()){
+    			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+    		}
+        }
 	}
 
 }

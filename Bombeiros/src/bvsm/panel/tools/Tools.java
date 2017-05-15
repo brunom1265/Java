@@ -8,7 +8,6 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 
 public class Tools implements ActionListener, ItemListener{
 	JButton jbutton;
@@ -60,6 +59,16 @@ public class Tools implements ActionListener, ItemListener{
 		jbutton.setBounds(x, y, width, height);
 		jbutton.addActionListener(this);
 		jbutton.setVisible(true);
+		buttonArray.add(jbutton);
+	}
+	
+	public void createButton(String text, int x, int y, int width, int height, boolean visible){
+		jbutton = new JButton();
+		jbutton.setText(text);
+		jbutton.setName(text);
+		jbutton.setBounds(x, y, width, height);
+		jbutton.addActionListener(this);
+		jbutton.setVisible(visible);
 		buttonArray.add(jbutton);
 	}
 	
@@ -228,6 +237,7 @@ public class Tools implements ActionListener, ItemListener{
 			for(int yIndex = 0; yIndex < list[0].length; yIndex++){
 				combo.addItem(list[0][yIndex]);
 			}
+		combo.setSelectedIndex(0);
 		combo.addActionListener(this);
 		JComboListArray.add(combo);
 		return combo;
@@ -265,11 +275,13 @@ public class Tools implements ActionListener, ItemListener{
 	public JTable createTable(String name, int rows, int columns, int width, int height, boolean visible){
 		
 		JTable table = new JTable(rows, columns);
+
 		table.setName(name);
 		table.setVisible(visible);
 		table.setBounds(0, 0, width, height);
 		table.setFillsViewportHeight(true);
 		table.setRowHeight(25);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		panelTableArray.add(table);
 		return panelTableArray.get(panelTableArray.size() - 1);
 

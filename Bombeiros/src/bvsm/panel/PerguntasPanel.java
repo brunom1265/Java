@@ -8,28 +8,27 @@ import javax.swing.JFrame;
 import bvsm.panel.tools.ComboBoxManager;
 
 public class PerguntasPanel extends BasePanel{
-	
-	ComboBoxManager cbm;
-	
+		
 	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents(){
 				
-		String[][] topic = {{"Incêndio", "Saúde", "Comunicações"}};
-		String[][] subTopic = {{"Florestal", "Urbano"},
-							   {"TS", "TAT", "TAS"}};
-		
-		String[][][] subsubTopic = {{{"Extintores", "Bombas"}},
-				  {{"EPI", "Hidrantes"}},
-				  {{"SBV"}}};
-		
+
+		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
+
+		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
+
+		String[][][] subsubTopic = { { { "Extintores", "Bombas" }, { "EPI", "Hidrantes" }, { "EPI", "Hidrantes" } },
+				{ { "SBV", "PCR" }, { "1", "2" } }, { { "Tipos" } } };
+
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 		
-		createComboBox(cbm.topic, "topic", 100, 100, 150, 30, true);
-		createComboBox(cbm.subTopic, "subTopic", 300, 100, 150, 30, true);
-		//createComboBox(cbm.subsubTopic, "subsubTopic", 500, 100, 150, 30, true);
+		createComboBox(topic, "topic", 100, 100, 150, 30, true);
+		createComboBox(subTopic, "subTopic", 280, 100, 150, 30, true);
+		createComboBox(subsubTopic, "subsubTopic", 460, 100, 150, 30, true);
+		
 		createButton("Iniciar teste", "iniciar", 100, 200);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createQuestionArea();

@@ -24,7 +24,6 @@ public class Main {
 	public Main(){
 		mainFrame = new JFrame(mFrameTitle);
 		//toolFrame = new JFrame("Tools");
-		questions = new Questions();
 		loginPanel = new LoginPanel(null, mainFrame, mFrameTitle, 0, 0, width, height);
 		loginPanel.setVisible(true);
 		//toolPanel = new ToolPanel(null, toolFrame, "tools", 0, 0, 220, 440);
