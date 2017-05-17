@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="bvsm.panel.ToolPanel"/>
 <fullyQualifiedTypeName name="bvsm.panel.MainPanel"/>
 <fullyQualifiedTypeName name="bvsm.panel.PerguntasPanel"/>
 <fullyQualifiedTypeName name="java.awt.Component"/>
@@ -22,9 +21,7 @@
 <fullyQualifiedTypeName name="org.lwjgl.system.MemoryStack"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="org.lwjgl.system.MemoryUtil"/>
-<fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWVidMode"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWKeyCallbackI"/>
-<fullyQualifiedTypeName name="org.lwjgl.opengl.GL"/>
 <fullyQualifiedTypeName name="com.im.out.util.ShaderUtils"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFW"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.text.Normalizer"/>
 <fullyQualifiedTypeName name="java.text.Normalizer.Form"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWVidMode"/>
+<fullyQualifiedTypeName name="org.lwjgl.opengl.GL"/>
+<fullyQualifiedTypeName name="bvsm.questions.Questions"/>
 </qualifiedTypeNameHistroy>

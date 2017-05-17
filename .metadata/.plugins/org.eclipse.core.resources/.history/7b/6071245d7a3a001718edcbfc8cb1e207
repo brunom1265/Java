@@ -1,0 +1,31 @@
+package bvsm.questions;
+
+public interface QuestionsEngine {
+	
+	static int qNumbers = 0;
+	static String question, a1, a2, a3;
+	static boolean running = false;
+	static String theme;
+	private static Questions q;
+	
+	private static String[][] testArray;
+	
+	public QuestionsEngine(Questions q, int aNumbers, int type){
+		this.q = q;
+		this.theme = q.getTheme();
+	}
+	
+	static void startTest(){
+		running = true;
+		
+		while(running){
+			
+		}
+		stopTest();
+	}
+	
+	static void stopTest(){
+		running = false;
+	}
+	
+}

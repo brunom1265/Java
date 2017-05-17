@@ -6,9 +6,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import bvsm.panel.tools.ComboBoxManager;
+import bvsm.questions.Questions;
 
 public class PerguntasPanel extends BasePanel{
 		
+	Questions q;
+	
 	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
 	}
