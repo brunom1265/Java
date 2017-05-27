@@ -1,0 +1,36 @@
+package bvsm.questions;
+
+import javax.swing.JComboBox;
+
+import bvsm.database.Database;
+import bvsm.panel.tools.ComboBoxManager;
+
+public class QuestionsEngine {
+	
+	int aNumbers;
+	String theme, type;
+	
+	JComboBox sCombo;
+	
+	Database db;
+	ComboBoxManager cbm;
+	
+	public QuestionsEngine(int aNumbers, String type, ComboBoxManager cbm, Database db){
+		this.aNumbers = aNumbers;
+		this.type = type;
+		this.cbm = cbm;
+		this.db = db;
+	}
+	
+	public String[][] getQuestions(){
+		return null;
+		
+	}
+	
+	public String getTheme(JComboBox cb){
+		sCombo = cb;
+		
+		theme = (String) cb.getSelectedItem();
+		return theme;
+	}
+}

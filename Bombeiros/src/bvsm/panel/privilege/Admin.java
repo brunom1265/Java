@@ -32,7 +32,7 @@ public class Admin extends BasePanel {
 		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
 		String[][][] subsubTopic = { { { "Extintores", "Bombas" }, { "EPI", "Hidrantes" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "1", "2" } }, { { "Tipos" } } };
+				{ { "SBV", "PCR" }, { "1", "2" }, {"123", "456"}}, { { "Tipos" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
@@ -55,7 +55,7 @@ public class Admin extends BasePanel {
 		createPanel("mainPanel", 100, 250, 600, 270);
 
 		getPanel("mainPanel").add(createTable("mainTable", 0, 6, 600, 270, true));
-		getPanel("mainPanel").add(createTable("questionTable", 0, 6, 600, 270, true));
+		getPanel("mainPanel").add(createTable("questionTable", 0, 4, 600, 270, true));
 
 		questions = new Questions(cbm, db);
 
@@ -76,7 +76,7 @@ public class Admin extends BasePanel {
 			JComboBox<String> cb = getComboBox("topic");
 			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
 			try {
-				questions.getQuestions(questionModel);
+				questions.getQuestions(questionModel, questions.getTheme(), cbm.b3);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -127,7 +127,6 @@ public class Admin extends BasePanel {
 		if (e.getActionCommand() == "Adicionar Pergunta") {
 			questions.addQuestion(questionModel);
 			JComboBox<String> cb = getComboBox("topic");
-			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
 		}
 
 		if (e.getActionCommand() == "Gravar") {
@@ -139,6 +138,18 @@ public class Admin extends BasePanel {
 			JComboBox<String> cb = (JComboBox<String>) e.getSource();
 			if (cb.isPopupVisible()) {
 				cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+				cleanTable(questionModel);
+				try {
+					questions.getQuestions(questionModel, questions.getTheme(), cbm.b3);
+				} catch (SQLException e1) {
+					try {
+						db.createTable(questions.getTheme());
+						questions.getQuestions(questionModel, questions.getTheme(), cbm.b3);
+					} catch (SQLException e2) {
+						e2.printStackTrace();
+					}
+
+				}
 			}
 			
 		}
@@ -155,7 +166,7 @@ public class Admin extends BasePanel {
 											res.getString(6), 
 											res.getString(7), 
 											res.getString(2),
-											res.getString(3), 
+											res.getString(3),
 											verifyNumber(res.getInt(4))
 			});
 

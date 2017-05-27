@@ -1,0 +1,12 @@
+package bvsm.questions;
+
+import bvsm.database.Database;
+import bvsm.panel.tools.ComboBoxManager;
+
+public class Questions extends QuestionsEngine{
+	
+	public Questions(int aNumbers, String type, ComboBoxManager cbm, Database db) {
+		super(aNumbers, type, cbm, db);
+		getQuestions();
+	}
+}

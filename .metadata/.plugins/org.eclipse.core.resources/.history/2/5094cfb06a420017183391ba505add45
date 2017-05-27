@@ -1,0 +1,27 @@
+package bvsm.questions;
+
+import java.sql.SQLException;
+
+import javax.swing.table.DefaultTableModel;
+
+import bvsm.database.Database;
+import bvsm.panel.tools.ComboBoxManager;
+
+public class QuestionsEngine  extends Questions{
+	
+	private static int qNumbers = 0;
+	private static String question, a1, a2, a3;
+	private static String theme;
+	private static String[][] testArray;
+	
+	public void start(){
+		try {
+			getQuestions(getTheme());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+}

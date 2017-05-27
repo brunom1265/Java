@@ -1,0 +1,32 @@
+package bvsm.questions;
+
+import bvsm.database.Database;
+import bvsm.panel.tools.ComboBoxManager;
+
+public class QuestionsEngine {
+	
+	int aNumbers;
+	String theme, type;
+		
+	Database db;
+	ComboBoxManager cbm;
+	
+	public QuestionsEngine(int aNumbers, String type, ComboBoxManager cbm, Database db){
+		this.aNumbers = aNumbers;
+		this.type = type;
+		this.cbm = cbm;
+		this.db = db;
+
+	}
+	
+	public String[][] getQuestions(){
+		String[][] ola = {{"df", "sdf"}};
+		return ola;
+	}
+	
+	public String getTheme(){
+		theme = cbm.second.substring(0, 2);
+		System.out.println(theme);
+		return theme;
+	}
+}

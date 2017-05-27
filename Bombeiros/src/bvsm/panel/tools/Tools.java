@@ -354,6 +354,7 @@ public class Tools implements ActionListener, ItemListener{
 	public void updateCombo(JComboBox<String> cb, String[] list){
 
 		cb.removeAllItems();
+
 		for(int x = 0; x < list.length; x++){
 				cb.addItem(list[x]);
 		}

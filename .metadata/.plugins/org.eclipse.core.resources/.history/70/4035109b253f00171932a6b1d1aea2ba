@@ -1,0 +1,16 @@
+package bvsm.questions;
+
+import bvsm.panel.tools.ComboBoxManager;
+
+public class Questions extends QuestionsEngine{
+	
+	public Questions(int aNumbers, String type, ComboBoxManager cbm) {
+		super(aNumbers, type, cbm, db);
+		
+	}
+	
+	public void getQuestions(){
+		
+	}
+	
+}
