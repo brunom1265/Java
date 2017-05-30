@@ -53,11 +53,11 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.swing.JTable"/>
 <fullyQualifiedTypeName name="java.text.Normalizer.Form"/>
-<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFWVidMode"/>
 <fullyQualifiedTypeName name="org.lwjgl.opengl.GL"/>
 <fullyQualifiedTypeName name="bvsm.database.Database"/>
 <fullyQualifiedTypeName name="bvsm.questions.Questions"/>
 <fullyQualifiedTypeName name="java.text.Normalizer"/>
 <fullyQualifiedTypeName name="bvsm.questions.QuestionsEngine"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 </qualifiedTypeNameHistroy>

@@ -12,7 +12,7 @@ import bvsm.panel.tools.ComboBoxManager;
 
 public class Questions{
 
-	int size = 0;
+	public int size = 0;
 	int rowSize = 0, columnSize = 0;
 	boolean save = false;
 	

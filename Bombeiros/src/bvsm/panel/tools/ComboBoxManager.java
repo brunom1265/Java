@@ -10,13 +10,14 @@ public class ComboBoxManager {
 	public String[][] subTopic;
 	public String[][][] subsubTopic;
 
-	int indexPress = 0;
-	int indexLast = 0;
+	public int indexPress = 0;
+	public int indexLast = 0;
 	int indexL = 0;
 
 	public String b1;
 	public String b2;
 	public int b3;
+	public String type;
 
 	protected int pM = 0;
 
@@ -52,6 +53,7 @@ public class ComboBoxManager {
 		b1 = (String) combos[1].getSelectedItem();
 		b2 = (String) combos[2].getSelectedItem();
 		b3 = combos[3].getSelectedIndex();
+		type = (String) combos[3].getSelectedItem();
 
 	}
 

@@ -23,8 +23,8 @@ public class PerguntasPanel extends BasePanel{
 
 		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
-		String[][][] subsubTopic = { { { "Extintores", "Bombas" }, { "EPI", "Hidrantes" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "1", "2" } }, { { "Tipos" } } };
+		String[][][] subsubTopic = { { { "Extintores", "Bombas", "Várias" }, { "EPI", "Hidrantes", "Várias" }, { "EPI", "Hidrantes", "Várias" } },
+				{ { "SBV", "PCR", "Várias"}, { "1", "2", "Várias" } , { "3", "4", "5", "Várias" } }, { { "Tipos", "Várias" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 		qe = new QuestionsEngine(cbm, db);
@@ -46,7 +46,7 @@ public class PerguntasPanel extends BasePanel{
 			createQuestionArea();
 			setRadioBoxVisible(true);
 			setComboBoxEditable(false);
-			qe.start();
+			qe.start(20);
 		}
 		
 		if(e.getActionCommand() == "Voltar"){

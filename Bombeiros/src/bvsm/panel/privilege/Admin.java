@@ -150,8 +150,8 @@ public class Admin extends BasePanel {
 					}
 
 				}
-			}
-			
+				questions.size = 0;
+			}			
 		}
 	}
 

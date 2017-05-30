@@ -1,0 +1,54 @@
+package bvsm.questions;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import bvsm.database.Database;
+import bvsm.panel.tools.ComboBoxManager;
+
+public class QuestionsEngine  extends Questions{
+	
+	public QuestionsEngine(ComboBoxManager cbm, Database db) {
+		super(cbm, db);
+	}
+
+	private static int qNumbers = 0;
+	private static String question, a1, a2, a3;
+	private static String theme;
+	private static String[][][] questionsArray;
+	
+	public void start(){
+		
+		try {
+			
+			int topicSize = cbm.subsubTopic[cbm.indexPress][cbm.indexLast].length;
+			questionsArray = new String[topicSize][20][20];
+			
+			if(cbm.type == "Várias"){
+				int temp = 0;
+				ResultSet res = getQuestions(getTheme());
+				for(int i = 0; i < topicSize; i++){
+					while(res.next()){
+						System.out.println("2 = " + res.getString(2));
+						System.out.println("3 = " + res.getString(3));
+						System.out.println("4 = " + res.getString(4));
+						System.out.println("5 = " + res.getString(5));
+
+
+						questionsArray[i][temp][0] = res.getString(2);
+						questionsArray[i][temp][1] = res.getString(3);
+						questionsArray[i][temp][2] = res.getString(4);
+						questionsArray[i][temp][3] = res.getString(5);
+						temp++;
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+}
