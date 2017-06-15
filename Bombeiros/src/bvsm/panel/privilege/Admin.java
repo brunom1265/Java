@@ -32,7 +32,7 @@ public class Admin extends BasePanel {
 		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
 		String[][][] subsubTopic = { { { "Extintores", "Bombas" }, { "EPI", "Hidrantes" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "1", "2" }, {"123", "456"}}, { { "Tipos" } } };
+				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, {"123", "456"}}, { { "Tipos" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
@@ -40,8 +40,9 @@ public class Admin extends BasePanel {
 		createButton("Perguntas", 230, 100);
 
 		createButton("Adicionar Utilizador", 100, 550, 145, 35);
-		createButton("Gravar", 250, 550, 135, 35, false);
 		createButton("Adicionar Pergunta", 100, 550, 145, 35, false);
+		createButton("Eliminar Pergunta", 250, 550, 145, 35, false);
+		createButton("Gravar", 400, 550, 135, 35, false);
 
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createLabel("Utilizador: ", "labelUtilizador", 100, 175);
@@ -55,7 +56,7 @@ public class Admin extends BasePanel {
 		createPanel("mainPanel", 100, 250, 600, 270);
 
 		getPanel("mainPanel").add(createTable("mainTable", 0, 6, 600, 270, true));
-		getPanel("mainPanel").add(createTable("questionTable", 0, 4, 600, 270, true));
+		getPanel("mainPanel").add(createTable("questionTable", 0, 5, 600, 400, true));
 
 		questions = new Questions(cbm, db);
 
@@ -66,7 +67,7 @@ public class Admin extends BasePanel {
 
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand() == "Perguntas") {
@@ -87,8 +88,11 @@ public class Admin extends BasePanel {
 			getLabel("labelUtilizador").setVisible(false);
 			getTextArea("textUtilizador").setVisible(false);
 			getButton("Adicionar Pergunta").setVisible(true);
+			getButton("Eliminar Pergunta").setVisible(true);
+
 			getButton("Procurar").setVisible(false);
 			getButton("Adicionar Utilizador").setVisible(false);
+
 			getButton("Gravar").setVisible(true);
 
 			getPanelTable("mainTable").setVisible(false);
@@ -104,6 +108,8 @@ public class Admin extends BasePanel {
 			getLabel("labelUtilizador").setVisible(true);
 			getTextArea("textUtilizador").setVisible(true);
 			getButton("Adicionar Pergunta").setVisible(false);
+			getButton("Eliminar Pergunta").setVisible(false);
+
 			getButton("Gravar").setVisible(false);
 			getButton("Procurar").setVisible(true);
 			getButton("Adicionar Utilizador").setVisible(true);
