@@ -44,9 +44,8 @@ public class Database {
 					System.out.println("Building the User table");
 
 					Statement state2 = con.createStatement();
-					state2.execute("CREATE TABLE users(id integer," + "username varchar(60)," + "password varchar(60),"
-							+ "type int(3)," + "name varchar(60)," + "surname varchar (60)," + "age integer(2),"
-							+ "primary key(id));");
+					state2.execute("CREATE TABLE users(id integer(1000)," + "username varchar(60)," + "password varchar(60),"
+							+ "type int(3)," + "name varchar(60)," + "surname varchar (60)," + "age integer(2));");
 
 					addUser("ICENine", "650031772", 1, "Bruno", "Garcia", 23);
 					
@@ -101,20 +100,21 @@ public class Database {
 		return res;
 	}
 
-	public void insertQuestion(String q1, String a1, String a2, String a3, String a4, String theme, int type) {
+	public void insertQuestion(int dbSize, String q1, String a1, String a2, String a3, String a4, String theme, int type) {
 
 		connect();
 
 		try {
 			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?, ?, ?)");
+			prep.setInt(1, dbSize);
 			prep.setString(2, q1);
 			prep.setString(3, a1);
 			prep.setString(4, a2);
 			prep.setString(5, a3);
 			prep.setString(6, a4);
 			prep.setInt(7, type);
-
 			prep.execute();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -143,12 +143,30 @@ public class Database {
 
 		return res;
 	}
+	
+	public void deleteQuestion(String theme, int id) throws SQLException{
+		connect();
+
+		Statement state = con.createStatement();
+
+		state.execute("DELETE FROM " + theme + " WHERE id='" + id + "'");
+
+		for(int i = id; i <= getTableSize(theme); i++){
+			int temp = ++i;
+			int minusi = --i;
+			System.out.println("temp = " + temp + ", i = " + i + ", id = " + id);
+
+			Statement state2 = con.createStatement();
+			state2.execute("UPDATE " + theme + " SET id = " + i + " WHERE id = " + temp);
+			
+		}
+	}
 
 	public void createTable(String tableName) {
 		try {
 			Statement state = con.createStatement();
-			state.execute("CREATE TABLE " + tableName + "(id integer," + "q1 varchar(120)," + "a1 varchar(120),"
-					+ "a2 varchar(120)," + "a3 varchar(120)," + "a4 varchar(120)," + "type integer(20)," + "primary key(id));");
+			state.execute("CREATE TABLE " + tableName + "(id integer(1000)," + "q1 varchar(120)," + "a1 varchar(120),"
+					+ "a2 varchar(120)," + "a3 varchar(120)," + "a4 varchar(120)," + "type integer(20));");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -157,6 +175,14 @@ public class Database {
 	public int getTableSize(String name, int type) throws SQLException {
 		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery("SELECT COUNT(*) FROM " + name + " WHERE type='" + type + "'");
+		res.next();
+		return res.getInt(1);
+		
+	}
+	
+	public int getTableSize(String name) throws SQLException {
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT COUNT(*) FROM " + name);
 		res.next();
 		return res.getInt(1);
 		

@@ -48,14 +48,19 @@ public class Questions {
 
 	}
 
-	public void saveQuestions() {
+	public void saveQuestions(int dbSize) {
 		for (int x = rowSize; x < (rowSize + size); x++) {
-			db.insertQuestion((String) model.getValueAt(x, 0), (String) model.getValueAt(x, 1),
+			db.insertQuestion(x + 1, (String) model.getValueAt(x, 0), (String) model.getValueAt(x, 1),
 					(String) model.getValueAt(x, 2), (String) model.getValueAt(x, 3), (String) model.getValueAt(x, 4), getTheme(), cbm.b3);
 
 		}
 		size = 0;
 		save = false;
+	}
+	
+	public void deleteQuestion(int id) throws SQLException{
+		db.deleteQuestion(getTheme(), id);
+		
 	}
 
 	public String getTheme() {
@@ -66,24 +71,24 @@ public class Questions {
 		return theme;
 	}
 
-	public ResultSet getQuestions(String theme) throws SQLException {
+	public ResultSet getQuestions() throws SQLException {
 
-		ResultSet res = db.getQuestions(theme);
+		ResultSet res = db.getQuestions(getTheme());
 		return res;
 
 	}
 
-	public ResultSet getQuestions(String theme, int type) throws SQLException {
+	public ResultSet getQuestions(int type) throws SQLException {
 
-		ResultSet res = db.getQuestions(theme, type);
+		ResultSet res = db.getQuestions(getTheme(), type);
 		return res;
 
 	}
 
-	public void getQuestions(DefaultTableModel model, String theme, int type) throws SQLException {
+	public void getQuestions(DefaultTableModel model, int type) throws SQLException {
 		this.model = model;
 
-		ResultSet res = db.getQuestions(theme, type);
+		ResultSet res = db.getQuestions(getTheme(), type);
 
 		while (res.next()) {
 			model.addRow(new Object[] { res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6)});
