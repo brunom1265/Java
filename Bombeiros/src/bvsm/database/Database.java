@@ -44,12 +44,13 @@ public class Database {
 					System.out.println("Building the User table");
 
 					Statement state2 = con.createStatement();
-					state2.execute("CREATE TABLE users(id integer(1000)," + "username varchar(60)," + "password varchar(60),"
-							+ "type int(3)," + "name varchar(60)," + "surname varchar (60)," + "age integer(2));");
+					state2.execute("CREATE TABLE users(id integer(1000)," + "username varchar(60),"
+							+ "password varchar(60)," + "type int(3)," + "name varchar(60)," + "surname varchar (60),"
+							+ "age integer(2));");
 
-					addUser("ICENine", "650031772", 1, "Bruno", "Garcia", 23);
-					
-					addUser("assim", "asdf", 2, "Joana", "Madeira", 23);
+					addUser(1, "ICENine", "650031772", 1, "Bruno", "Garcia", 23);
+
+					addUser(2, "assim", "asdf", 2, "Joana", "Madeira", 23);
 					createTable("inFlorestal");
 				}
 			} catch (SQLException e) {
@@ -59,12 +60,14 @@ public class Database {
 		}
 	}
 
-	public void addUser(String username, String password, int type, String name, String surname, int age) {
+	public void addUser(int dbSize, String username, String password, int type, String name, String surname, int age) {
 		connect();
 
 		PreparedStatement prep;
 		try {
+			System.out.println(dbSize);
 			prep = con.prepareStatement("INSERT INTO users values(?, ?, ?, ?, ?, ?, ?)");
+			prep.setInt(1, dbSize);
 			prep.setString(2, username);
 			prep.setString(3, password);
 			prep.setInt(4, type);
@@ -82,7 +85,8 @@ public class Database {
 
 		Statement state = con.createStatement();
 
-		ResultSet res = state.executeQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'");
+		ResultSet res = state
+				.executeQuery("SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'");
 
 		if (res.next()) {
 			return res;
@@ -100,7 +104,27 @@ public class Database {
 		return res;
 	}
 
-	public void insertQuestion(int dbSize, String q1, String a1, String a2, String a3, String a4, String theme, int type) {
+	public void deleteUser(int id) {
+		connect();
+
+		try {
+			Statement state = con.createStatement();
+
+			state.execute("DELETE FROM users WHERE id='" + id + "'");
+
+			for (int i = id; i <= getTableSize("users"); i++) {
+				int temp = ++i;
+
+				Statement state2 = con.createStatement();
+				state2.execute("UPDATE users SET id = " + i + " WHERE id = " + temp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void insertQuestion(int dbSize, String q1, String a1, String a2, String a3, String a4, String theme,
+			int type) {
 
 		connect();
 
@@ -119,7 +143,7 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ResultSet getQuestions(String theme) {
 		connect();
 		try {
@@ -143,22 +167,20 @@ public class Database {
 
 		return res;
 	}
-	
-	public void deleteQuestion(String theme, int id) throws SQLException{
+
+	public void deleteQuestion(String theme, int id) throws SQLException {
 		connect();
 
 		Statement state = con.createStatement();
 
 		state.execute("DELETE FROM " + theme + " WHERE id='" + id + "'");
 
-		for(int i = id; i <= getTableSize(theme); i++){
+		for (int i = id; i <= getTableSize(theme); i++) {
 			int temp = ++i;
-			int minusi = --i;
-			System.out.println("temp = " + temp + ", i = " + i + ", id = " + id);
 
 			Statement state2 = con.createStatement();
 			state2.execute("UPDATE " + theme + " SET id = " + i + " WHERE id = " + temp);
-			
+
 		}
 	}
 
@@ -177,15 +199,15 @@ public class Database {
 		ResultSet res = state.executeQuery("SELECT COUNT(*) FROM " + name + " WHERE type='" + type + "'");
 		res.next();
 		return res.getInt(1);
-		
+
 	}
-	
+
 	public int getTableSize(String name) throws SQLException {
 		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery("SELECT COUNT(*) FROM " + name);
 		res.next();
 		return res.getInt(1);
-		
+
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import videoShow.panel.BasePanel;
 import videoShow.panel.VideoShow;
 
 public class Main{
@@ -15,7 +16,7 @@ public class Main{
 	JPanel panel;
 	JButton eButton;
 	
-	VideoShow vS;
+	BasePanel vS;
 	
 	public Main() throws ClassNotFoundException, SQLException, IOException{
 		frame = new JFrame();

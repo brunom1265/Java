@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import bvsm.panel.BasePanel;
 import bvsm.panel.tools.ComboBoxManager;
 import bvsm.questions.Questions;
+import bvsm.users.UsersManager;
 
 public class Admin extends BasePanel {
 
@@ -18,62 +21,83 @@ public class Admin extends BasePanel {
 	DefaultTableModel questionModel;
 
 	Questions questions;
-
+	UsersManager users;
+	TableColumn sportColumn;
 	String p = "";
+
+	boolean state = false;
 
 	public Admin(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents() {
-
 		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
 
-		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
+		String[][] subTopic = { { "Geral", "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
-		String[][][] subsubTopic = { { { "Extintores", "Bombas" }, { "EPI", "Hidrantes" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, {"123", "456"}}, { { "Tipos" } } };
+		String[][][] subsubTopic = { { { "Fenomenologia da Combustão" }, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
+				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, { "123", "456" } }, { { "Tipos" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
+		// Main Buttons
 		createButton("Utilizadores", 100, 100);
 		createButton("Perguntas", 230, 100);
 
-		createButton("Adicionar Utilizador", 100, 550, 145, 35);
+		// Users Buttons
+		createButton("Adicionar Utilizador", 100, 550, 145, 35, true);
+		createButton("Eliminar Utilizador", 250, 550, 145, 35, true);
+		createButton("Gravar", 400, 550, 145, 35, true);
+
+		// Questions Buttons
 		createButton("Adicionar Pergunta", 100, 550, 145, 35, false);
 		createButton("Eliminar Pergunta", 250, 550, 145, 35, false);
 		createButton("Gravar", 400, 550, 135, 35, false);
 
+		// Info Area
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 		createLabel("Utilizador: ", "labelUtilizador", 100, 175);
 		createJTextArea("textUtilizador", "", 200, 175, 300, 35);
 		createButton("Procurar", 550, 175);
 
+		// Combobox for choose
 		createComboBox(topic, "topic", 100, 180, 150, 30, false);
 		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
 		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
 
-		createPanel("mainPanel", 100, 250, 600, 270);
+		String[] mainHeader = { "Nome", "Sobrenome", "Idade", "Username", "Password", "Tipo" };
+		String[] questionsHeader = { "Pergunta", "Resposta 1", "Resposta 2", "Resposta 3", "Resposta 4" };
 
-		getPanel("mainPanel").add(createTable("mainTable", 0, 6, 600, 270, true));
-		getPanel("mainPanel").add(createTable("questionTable", 0, 5, 600, 400, true));
+		createTable("mainTable", 100, 250, 900, 270, true, mainHeader, this.jpanel);
+		createTable("questionTable", 100, 250, 900, 270, false, questionsHeader, this.jpanel);
+
+		String[] type = { "Administrador", "Moderador", "Utilizador" };
+
+		sportColumn = getTable("mainTable").getColumnModel().getColumn(5);
+		createComboBox(type, "type");
+
+		sportColumn = getTable("mainTable").getColumnModel().getColumn(5);
+		createComboBox(type, "type");
+		sportColumn.setCellEditor(new DefaultCellEditor(getComboBox("type")));
 
 		questions = new Questions(cbm, db);
+		users = new UsersManager(db);
 
-		model = (DefaultTableModel) getPanelTable("mainTable").getModel();
-		questionModel = (DefaultTableModel) getPanelTable("questionTable").getModel();
+		model = (DefaultTableModel) getTable("mainTable").getModel();
+		questionModel = (DefaultTableModel) getTable("questionTable").getModel();
 
 		getAllUsers();
 
 	}
 
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand() == "Perguntas") {
-
+			state = true;
 			cleanTable(questionModel);
-			
+
 			JComboBox<String> cb = getComboBox("topic");
 			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
 			try {
@@ -92,15 +116,15 @@ public class Admin extends BasePanel {
 
 			getButton("Procurar").setVisible(false);
 			getButton("Adicionar Utilizador").setVisible(false);
+			getButton("Eliminar Utilizador").setVisible(false);
 
-			getButton("Gravar").setVisible(true);
-
-			getPanelTable("mainTable").setVisible(false);
-			getPanelTable("questionTable").setVisible(true);
+			setTableVisible("mainTable", false);
+			setTableVisible("questionTable", true);
 
 		}
 
 		if (e.getActionCommand() == "Utilizadores") {
+			state = false;
 
 			getComboBox("topic").setVisible(false);
 			getComboBox("subTopic").setVisible(false);
@@ -110,31 +134,28 @@ public class Admin extends BasePanel {
 			getButton("Adicionar Pergunta").setVisible(false);
 			getButton("Eliminar Pergunta").setVisible(false);
 
-			getButton("Gravar").setVisible(false);
 			getButton("Procurar").setVisible(true);
 			getButton("Adicionar Utilizador").setVisible(true);
+			getButton("Eliminar Utilizador").setVisible(true);
 
-			getPanelTable("mainTable").setVisible(true);
-			getPanelTable("questionTable").setVisible(false);
+			setTableVisible("mainTable", true);
+			setTableVisible("questionTable", false);
 
 			getAllUsers();
 		}
 
-		if (e.getActionCommand() == "Voltar")
-
-		{
+		if (e.getActionCommand() == "Voltar") {
 			setVisible(false);
 			previous.setVisible(true);
 		}
 
 		if (e.getActionCommand() == "Adicionar Utilizador") {
+			users.addUser(model);
 		}
-		
+
 		if (e.getActionCommand() == "Adicionar Pergunta") {
 			questions.addQuestion(questionModel);
-			JComboBox<String> cb = getComboBox("topic");
 		}
-		
 		if (e.getActionCommand() == "Eliminar Pergunta") {
 			try {
 				questions.deleteQuestion(getTable("questionTable").getSelectedRow() + 1);
@@ -145,12 +166,23 @@ public class Admin extends BasePanel {
 				e1.printStackTrace();
 			}
 		}
+		
+		if (e.getActionCommand() == "Eliminar Utilizador") {
+			System.out.println("asd");
+			users.deleteUsers(getTable("mainTable").getSelectedRow() + 1);
+			cleanTable(model);
+			getAllUsers();
+		}
 
 		if (e.getActionCommand() == "Gravar") {
-			try {
-				questions.saveQuestions(db.getTableSize(questions.getTheme(), cbm.b3));
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+			if (state) {
+				try {
+					questions.saveQuestions(db.getTableSize(questions.getTheme(), cbm.b3));
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				users.saveUsers();
 			}
 		}
 
@@ -159,6 +191,7 @@ public class Admin extends BasePanel {
 			if (cb.isPopupVisible()) {
 				cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
 				cleanTable(questionModel);
+				System.out.println(e.getActionCommand());
 				try {
 					questions.getQuestions(questionModel, cbm.b3);
 				} catch (SQLException e1) {
@@ -171,7 +204,7 @@ public class Admin extends BasePanel {
 
 				}
 				questions.size = 0;
-			}			
+			}
 		}
 	}
 
@@ -182,14 +215,10 @@ public class Admin extends BasePanel {
 		try {
 			ResultSet res = db.getUsers();
 			while (res.next()) {
-				model.addRow(new Object[] { res.getString(5), 
-											res.getString(6), 
-											res.getString(7), 
-											res.getString(2),
-											res.getString(3),
-											verifyNumber(res.getInt(4))
-			});
+				model.addRow(new Object[] { res.getString(5), res.getString(6), res.getString(7), res.getString(2),
+						res.getString(3) });
 
+				model.setValueAt(verifyNumber(res.getInt(4)), res.getInt(1) - 1, 5);
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -199,7 +228,7 @@ public class Admin extends BasePanel {
 	private String verifyNumber(int number) {
 		if (number == 1) return "Administrador";
 		if (number == 2) return "Manager";
-		if (number == 3) return "Usuário";
+		if (number == 3) return "Utilizador";
 		return null;
 	}
 

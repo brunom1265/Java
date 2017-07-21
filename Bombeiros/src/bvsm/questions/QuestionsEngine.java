@@ -45,7 +45,7 @@ public class QuestionsEngine extends Questions {
 				questionsArray = new String[topicSize][200][5];
 
 				for (int i = 0; i < topicSize; i++) {
-					ResultSet res = getQuestions(getTheme(), i);
+					ResultSet res = getQuestions(i);
 					while (res.next()) {
 
 						questionsArray[i][temp][0] = res.getString(2);
@@ -60,7 +60,7 @@ public class QuestionsEngine extends Questions {
 				}
 			} else {
 				questionsArray = new String[1][200][5];
-				ResultSet res = getQuestions(getTheme(), cbm.b3);
+				ResultSet res = getQuestions(cbm.b3);
 				while (res.next()) {
 					questionsArray[0][temp][0] = res.getString(2);
 					questionsArray[0][temp][1] = res.getString(3);

@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import bvsm.panel.LoginPanel;
 import bvsm.panel.MainPanel;
 import bvsm.panel.ToolPanel;
-import bvsm.questions.Questions;
 
 public class Main {
 	
@@ -15,7 +14,6 @@ public class Main {
 	
 	protected JFrame mainFrame;
 	protected JFrame toolFrame;
-	private Questions questions;
 	
 	LoginPanel loginPanel;
 	MainPanel mainPanel;
@@ -34,8 +32,8 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 		setFrame(main.mainFrame, width, height, null, true);
-		int x = main.mainFrame.getWidth() + main.mainFrame.getX();
-		int y = main.mainFrame.getY();
+		//int x = main.mainFrame.getWidth() + main.mainFrame.getX();
+		//int y = main.mainFrame.getY();
 		//setFrame(main.toolFrame, 220, 440, x, y, true);
 	} 
 	

@@ -33,8 +33,7 @@ public class Database {
 			getConnection();
 		}
 
-		Statement state;
-		state = con.createStatement();
+		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery(("SELECT id, vName FROM " + table + " WHERE id = " + id));
 		if(!state.isClosed()){
 			return res;
@@ -53,7 +52,7 @@ public class Database {
 		if (!hasData) {
 			hasData = true;
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='DBM'");
+			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='DigitalPlayground'");
 
 			if (!res.next()) {
 				System.out.println("Building the User table");
@@ -73,6 +72,9 @@ public class Database {
 				Statement state2 = con.createStatement();
 				state2.execute("CREATE TABLE " + fileName + "(id integer," + "pName varchar(60),"
 						+ "vName varchar(30)," + "primary key(id));");
+				Statement state3 = con.createStatement();
+				state3.execute("CREATE TABLE Actors(id integer," + "firstName varchar(60),"
+						+ "lastName varchar(60)," + "primary key(id));");
 				filesNames.add(fileName);
 			}
 		}
@@ -81,7 +83,8 @@ public class Database {
 	private void updateRows() throws SQLException, IOException {
 		
 		for (int i = 0; i < filesNames.size(); i++) {
-			String dirName = "E:/Windows.old/Users/bruno/Videos/" + filesNames.get(i);
+			String dirName = "C:/Users/bruno/Desktop/Teste/" + filesNames.get(i);
+			System.out.println(dirName);
 			setDir(dirName);
 			for(Path file : stream){
 				String fileName = file.getFileName().normalize().toString();
@@ -92,7 +95,6 @@ public class Database {
 					prep.execute();
 				}
 			}
-			System.out.println(i);
 		}
 	}
 
@@ -111,5 +113,4 @@ public class Database {
 		}
 		return null;
 	}
-
 }

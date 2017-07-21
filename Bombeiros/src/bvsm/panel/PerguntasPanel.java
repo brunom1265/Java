@@ -22,10 +22,10 @@ public class PerguntasPanel extends BasePanel{
 
 		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
 
-		String[][] subTopic = { { "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
+		String[][] subTopic = { { "Geral", "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
-		String[][][] subsubTopic = { { { "Extintores", "Bombas", "Várias" }, { "EPI", "Hidrantes", "Várias" }, { "EPI", "Hidrantes", "Várias" } },
-				{ { "SBV", "PCR", "Várias"}, { "Abordagem da Vítima", "2", "Várias" } , { "3", "4", "5", "Várias" } }, { { "Tipos", "Várias" } } };
+		String[][][] subsubTopic = { { { "Fenomenologia da Combustão" }, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
+				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, { "123", "456" } }, { { "Tipos" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 		qe = new QuestionsEngine(cbm, db);
@@ -34,7 +34,7 @@ public class PerguntasPanel extends BasePanel{
 		createComboBox(subTopic, "subTopic", 280, 100, 150, 30, true);
 		createComboBox(subsubTopic, "subsubTopic", 460, 100, 150, 30, true);
 		
-		createLabel("", "question", 100, 200, 500, 100);
+		createLabel("", "question", 100, 150, 700, 130);
 		createLabel("", "note", 600, 250, 200, 50);
 		
 		createButton("Iniciar teste", "iniciar", 100, 200);
@@ -44,6 +44,7 @@ public class PerguntasPanel extends BasePanel{
 		createButton("Parar", "parar", 100, 600, false);
 		createButton("Novo Teste", "novoTeste", 100, 600, false);
 		createQuestionArea();
+	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -151,10 +152,10 @@ public class PerguntasPanel extends BasePanel{
 
 	private void createQuestionArea() {
 		createButtonGroup();
-		createRadioButton("Answer1", 100, 300, 400, 40, false).setSelected(true);
-		createRadioButton("Answer2", 100, 350, 400, 40, false);
-		createRadioButton("Answer3", 100, 400, 400, 40, false);
-		createRadioButton("Answer4", 100, 450, 400, 40, false);
+		createRadioButton("Answer1", 100, 300, 600, 40, false).setSelected(true);
+		createRadioButton("Answer2", 100, 350, 600, 40, false);
+		createRadioButton("Answer3", 100, 400, 600, 40, false);
+		createRadioButton("Answer4", 100, 450, 600, 40, false);
 		
 	}
 	

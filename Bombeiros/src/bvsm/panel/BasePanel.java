@@ -28,11 +28,10 @@ public abstract class BasePanel extends Tools{
 		jpanel.setName(name);
 		jpanel.setBounds(x, y, width, height);
 		jpanel.setBackground(Color.RED);
-		createLabel(800, 0, 300,300, images.getImage("Bombeiros"));
 		this.previous = previous;
-		addComponents(jpanel);
 		jpanel.setLayout(null);
 		jpanel.setVisible(false);
+		addComponents(jpanel);
 		frame.add(jpanel);
 		
 	}

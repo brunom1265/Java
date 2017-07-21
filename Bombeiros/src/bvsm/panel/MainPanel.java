@@ -34,15 +34,16 @@ public class MainPanel extends BasePanel{
 		createLabel("", "Name", 50, 50, 220, 35);
 		createLabel("Versão Alpha 0.01 ", "versão", 700, 600, 220, 35);
 		createButton("Matéria", 100, 100);
-		createButton("Perguntas", 230, 100);
+		createButton("Teste", 230, 100);
 		createButton("Definições", 360, 100);
 		createButton("Sair", 490, 100);
-				
+		createLabel(800, 0, 300,300, images.getImage("Bombeiros"));
+
 	}
 		
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getActionCommand() == "Perguntas"){
+		if(e.getActionCommand() == "Teste"){
 			setVisible(false);
 			questionsPanel.setVisible(true);
 		}

@@ -29,6 +29,7 @@ public class LoginPanel extends BasePanel{
 		createJTextArea("utilizadorLogin", "", 220, 100, 110, 30).setText("ICENine");
 		createJTextArea("passwordLogin", "", 220, 150, 110, 30).setText("650031772");
 		createButton("Entrar", "entrarLogin", 200, 200);
+		createLabel(800, 0, 300,300, images.getImage("Bombeiros"));
 	}
 	
 	public void actionPerformed(ActionEvent e) {
