@@ -283,6 +283,18 @@ public class Tools implements ActionListener, ItemListener {
 		JComboListArray.add(combo);
 		return combo;
 	}
+	
+	public JComboBox<String> createComboBox(String name, int x, int y, int width, int height,
+			boolean visible) {
+		combo = new JComboBox<String>();
+		combo.setName(name);
+		combo.setBounds(x, y, width, height);
+		combo.setVisible(visible);
+
+		combo.addActionListener(this);
+		JComboListArray.add(combo);
+		return combo;
+	}
 
 	public ButtonGroup createButtonGroup() {
 		bg = new ButtonGroup();

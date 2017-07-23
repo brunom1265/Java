@@ -1,0 +1,8 @@
+package com.mecathronic;
+
+public class Window {
+	
+	public Window(int width, int height, String title, Game game){
+		JFrame frame
+	}	
+}

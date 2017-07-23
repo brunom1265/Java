@@ -1,0 +1,25 @@
+package com.mecathronic;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+public class Box extends GameObject{
+
+	public Box(int x, int y) {
+		super(x, y);
+	}
+
+	public void update() {
+		
+	}
+
+	public void render(Graphics g) {
+		g.setColor(Color.BLUE);
+	}
+
+	public Rectangle getBound() {
+		return null;
+	}
+
+}

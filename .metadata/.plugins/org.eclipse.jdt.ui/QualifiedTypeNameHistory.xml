@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="videoShow.website.Connection"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.firefox.FirefoxDriver"/>
 <fullyQualifiedTypeName name="com.mecathronic.rainShow.level.Level"/>
 <fullyQualifiedTypeName name="com.mecathronic.rainShow.graphics.Screen"/>
@@ -56,8 +55,9 @@
 <fullyQualifiedTypeName name="com.mecathronic.walker.graphics.Screen"/>
 <fullyQualifiedTypeName name="com.mecathronic.walker.graphics.Vectors"/>
 <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="videoShow.panel.BasePanel"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultCellEditor"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

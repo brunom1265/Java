@@ -1,0 +1,17 @@
+package com.mecathronic;
+
+import java.util.LinkedList;
+
+public class Handler {
+	
+	LinkedList<GameObject> object = new LinkedList<GameObject>();
+	
+	public void update(){
+		
+	}
+	
+	public void render(Graphics g){
+		
+	}
+	
+}

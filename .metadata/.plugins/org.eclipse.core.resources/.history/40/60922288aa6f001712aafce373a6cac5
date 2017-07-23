@@ -1,0 +1,46 @@
+package com.mecathronic;
+
+import java.awt.Canvas;
+
+public class Game extends Canvas implements Runnable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private boolean isRunning = false;
+	private Thread thread;
+
+	public Game() {
+		new Window(1000, 563, "Wizard Game", this);
+		start();
+	}
+	
+	private void start(){
+		isRunning = true;
+		thread = new Thread(this);
+		thread.start();
+	}
+	
+	private void stop(){
+		isRunning = false;
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void run() {
+		this.requestFocus();
+		long lastTime = System.nanoTime();
+	}
+
+	public static void main(String args[]) {
+
+		new Game();
+
+	}
+
+}

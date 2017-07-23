@@ -1,0 +1,5 @@
+package com.mecathronic;
+
+public class Handler {
+	LinkedList<GameObject> object = new LinkedList<Object>();
+}

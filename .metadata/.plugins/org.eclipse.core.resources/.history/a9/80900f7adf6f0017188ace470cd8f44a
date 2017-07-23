@@ -1,0 +1,15 @@
+package com.mecathronic;
+
+public abstract class GameObject {
+
+	protected int x, y;
+	protected float velX = 0, velY = 0;
+	
+	public GameObject(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	
+	
+}

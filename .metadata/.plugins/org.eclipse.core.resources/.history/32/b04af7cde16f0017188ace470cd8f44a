@@ -1,0 +1,5 @@
+package com.mecathronic;
+
+public class Box extends GameObject{
+
+}
