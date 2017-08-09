@@ -14,6 +14,7 @@ public class MainPanel extends BasePanel{
 	BasePanel questionsPanel;
 	BasePanel adminPanel;
 	BasePanel managerPanel;
+	BasePanel userPanel;
 	
 	JFrame frame;
 	User user;
@@ -31,40 +32,39 @@ public class MainPanel extends BasePanel{
 	}
 	
 	protected void createComponents(){
+		
 		createLabel("", "Name", 50, 50, 220, 35);
-		createLabel("Versão Alpha 0.01 ", "versão", 700, 600, 220, 35);
+		createLabel("Versão Alpha 1.00 ", "versão", 700, 600, 220, 35);
 		createButton("Matéria", 100, 100);
 		createButton("Teste", 230, 100);
-		createButton("Definições", 360, 100);
-		createButton("Sair", 490, 100);
-		createLabel(800, 0, 300,300, images.getImage("Bombeiros"));
+		createButton("Definições", 490, 100);
+		createButton("Sair", 620, 100);
+		createLabel(800, 0, 300,300, images.getGif("bombeiros"));
 
 	}
 		
 	public void actionPerformed(ActionEvent e) {
-		
-		if(e.getActionCommand() == "Teste"){
+		String type = e.getActionCommand();
+		if(type == "Teste"){
 			setVisible(false);
 			questionsPanel.setVisible(true);
 		}
 		
-		if(e.getActionCommand() == "Matéria"){
+		if(type == "Matéria"){
 			setVisible(false);
 			materiaPanel.setVisible(true);
 		}
 		
-		if(e.getActionCommand() == "Definições"){
+		if(type == "Definições"){
 			setVisible(false);
 
 			if(user.getType() == 1) adminPanel.setVisible(true);
 			if(user.getType() == 2) managerPanel.setVisible(true);
 		}
 		
-		if(e.getActionCommand() == "Sair"){
+		if(type == "Sair"){
 			frame.dispose();
 		}
-		
-		
 		
 	}
 }

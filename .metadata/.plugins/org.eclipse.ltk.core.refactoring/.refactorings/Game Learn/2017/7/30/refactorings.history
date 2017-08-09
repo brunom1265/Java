@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Game Learn/src/com/mecathronic/src&apos; to &apos;res&apos;" description="Rename resource &apos;src&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/com/mecathronic/src" name="res" stamp="1500932940678" updateReferences="true"/>
+</session>

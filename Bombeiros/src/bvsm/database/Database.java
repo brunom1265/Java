@@ -7,7 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class Database {
+
+	String host = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11189329";
+	String user = "sql11189329";
+	String password = "Y1FGHSNK7h";
 
 	private static Connection con;
 	private static boolean hasData = false;
@@ -24,9 +30,10 @@ public class Database {
 
 	private void getConnection() {
 		try {
-			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:./src/bvsm/database/BVSM.db");
-			initialise();
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection(host, user, password);
+			//initialise();
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -37,22 +44,21 @@ public class Database {
 			hasData = true;
 			try {
 				Statement state = con.createStatement();
-				ResultSet res = state
-						.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='users'");
+				//ResultSet res = state
+						//.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='users'");
 
-				if (!res.next()) {
+				//if (!res.next()) {
 					System.out.println("Building the User table");
 
 					Statement state2 = con.createStatement();
-					state2.execute("CREATE TABLE users(id integer(1000)," + "username varchar(60),"
+					state2.execute("CREATE TABLE users(id integer(255)," + "username varchar(60),"
 							+ "password varchar(60)," + "type int(3)," + "name varchar(60)," + "surname varchar (60),"
 							+ "age integer(2));");
 
 					addUser(1, "ICENine", "650031772", 1, "Bruno", "Garcia", 23);
 
 					addUser(2, "assim", "asdf", 2, "Joana", "Madeira", 23);
-					createTable("inFlorestal");
-				}
+				//}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -187,8 +193,8 @@ public class Database {
 	public void createTable(String tableName) {
 		try {
 			Statement state = con.createStatement();
-			state.execute("CREATE TABLE " + tableName + "(id integer(1000)," + "q1 varchar(120)," + "a1 varchar(120),"
-					+ "a2 varchar(120)," + "a3 varchar(120)," + "a4 varchar(120)," + "type integer(20));");
+			state.execute("CREATE TABLE " + tableName + "(id integer(255)," + "q1 varchar(255)," + "a1 varchar(255),"
+					+ "a2 varchar(255)," + "a3 varchar(255)," + "a4 varchar(255)," + "type integer(20));");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

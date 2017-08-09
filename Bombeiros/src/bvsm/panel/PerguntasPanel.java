@@ -1,5 +1,6 @@
 package bvsm.panel;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
@@ -13,12 +14,13 @@ public class PerguntasPanel extends BasePanel{
 	QuestionsEngine qe;
 	String[] questions;
 	
+	boolean end = false;
+	
 	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
 	}
 
 	protected void createComponents(){
-				
 
 		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
 
@@ -33,31 +35,42 @@ public class PerguntasPanel extends BasePanel{
 		createComboBox(topic, "topic", 100, 100, 150, 30, true);
 		createComboBox(subTopic, "subTopic", 280, 100, 150, 30, true);
 		createComboBox(subsubTopic, "subsubTopic", 460, 100, 150, 30, true);
-		createComboBox("questionsSize", 620, 100, 150, 30, true);
 		
-		createLabel("", "question", 100, 150, 700, 130);
+		String[] questionsSize = {"10", "20", "30", "40"};
+		
+		createComboBox(questionsSize, "questionsSize", 640, 100, 150, 30, true);
+		
+		createLabel("", "question", 100, 150, 800, 130);
 		createLabel("", "note", 600, 250, 200, 50);
-		
+		createLabel(0, 0, this.jpanel.getWidth(), this.jpanel.getHeight(), images.getImage("Capa"));
+
 		createButton("Iniciar teste", "iniciar", 100, 200);
 		createButton("Anterior", "anterior", 100, 500, false);
 		createButton("Proxima", "proxima", 600, 500, false);
 		createButton("Voltar", "voltar", 100, 600);
 		createButton("Parar", "parar", 100, 600, false);
 		createButton("Novo Teste", "novoTeste", 100, 600, false);
+		
 		createQuestionArea();
-	
+
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
+		
+		String type = e.getActionCommand();
         
-		if(e.getActionCommand() == "Iniciar teste"){
+		if(type == "Iniciar teste"){
+			end = false;
 			getButton("iniciar").setVisible(false);
+			
 			createQuestionArea();
 			setRadioButton(true);
 			setRadioBoxVisible(true);
 			setComboBoxEditable(false);
-			qe.start(10);
+			
+			qe.start(Integer.parseInt((String) getComboBox("questionsSize").getSelectedItem()));
+			
 			getButton("proxima").setVisible(true);
 			getButton("voltar").setVisible(false);
 			getButton("parar").setVisible(true);
@@ -65,72 +78,79 @@ public class PerguntasPanel extends BasePanel{
 			questions = qe.getQuestions(true);
 			
 			getLabel("question").setText("<html>" + questions[0] + "</html>");
-			getRadioButton().get(0).setText(questions[1]);
-			getRadioButton().get(1).setText(questions[2]);
-			getRadioButton().get(2).setText(questions[3]);
-			getRadioButton().get(3).setText(questions[4]);
+			for(int i = 0; i < 4; i++){
+				getRadioButton().get(i).setText(questions[i + 1]);
+				getRadioButton().get(i).setOpaque(false);;
+
+			}
+
 			getLabel("question").setVisible(true);
 
 		}
 		
-		if(e.getActionCommand() == "Answer1"){
+		if(type == "Answer1"){
 			qe.setSelected(1);
-		}else if(e.getActionCommand() == "Answer2"){
+		}else if(type == "Answer2"){
 			qe.setSelected(2);
 			
-		} else if(e.getActionCommand() == "Answer3"){
+		} else if(type == "Answer3"){
 			qe.setSelected(3);
 			
-		} else if(e.getActionCommand() == "Answer4"){
+		} else if(type == "Answer4"){
 			qe.setSelected(4);
 		}
 		
-		if(e.getActionCommand() == "Voltar"){
+		if(type == "Voltar"){
 			setVisible(false);
 			previous.setVisible(true);
 
 		}
 		
-		if(e.getActionCommand() == "Proxima"){
+		if(type == "Proxima"){
+			
 			questions = qe.getQuestions(true);
 
 			getQuestion();
 			if(qe.atualQuestion == qe.questionsSize - 1){
 				getButton("proxima").setVisible(false);;
-				getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
-			} else{
-				getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
 			}
-				getButton("anterior").setVisible(true);;
+			getButton("anterior").setVisible(true);
+
+			getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
+			
+			cleanRadio();
+
 
 		}
 		
-		if(e.getActionCommand() == "Anterior"){
+		if(type == "Anterior"){
 			questions = qe.getQuestions(false);
 
 			getQuestion();
 			if(qe.atualQuestion == 1){
 				getButton("anterior").setVisible(false);
-				getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
-
-			} else{
-				getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
 			}
-			getButton("proxima").setVisible(true);;
+			getButton("proxima").setVisible(true);
+			getRadioButton().get(qe.selectedQuestion[qe.atualQuestion]).setSelected(true);
+			
+			cleanRadio();
 
 		}
 		
-		if(e.getActionCommand() == "Parar") {
+		if(type == "Parar") {
+			end = true;
 			qe.finalize();
 			getButton("parar").setVisible(false);
 			getLabel("note").setText("Nota: " + Double.toString(qe.note));
 			setRadioButton(false);
 			getButton("novoTeste").setVisible(true);;
 			getLabel("note").setVisible(true);
-
+			
+			cleanRadio();
+						
 		}
 		
-		if(e.getActionCommand() == "Novo Teste"){
+		if(type == "Novo Teste"){
 			setRadioBoxVisible(false);
 			setComboBoxEditable(true);
 			getButton("iniciar").setVisible(true);
@@ -140,10 +160,12 @@ public class PerguntasPanel extends BasePanel{
 			getButton("voltar").setVisible(true);
 			getLabel("note").setVisible(false);
 			getButton("novoTeste").setVisible(false);
+			
+			qe.atualQuestion = 0;
 
 		}
 		
-		if (e.getActionCommand() == "comboBoxChanged") {
+		if (type == "comboBoxChanged") {
 			JComboBox<String> cb = (JComboBox<String>) e.getSource();
 			if (cb.isPopupVisible()) {
 				cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
@@ -153,10 +175,11 @@ public class PerguntasPanel extends BasePanel{
 
 	private void createQuestionArea() {
 		createButtonGroup();
-		createRadioButton("Answer1", 100, 300, 600, 40, false).setSelected(true);
-		createRadioButton("Answer2", 100, 350, 600, 40, false);
-		createRadioButton("Answer3", 100, 400, 600, 40, false);
-		createRadioButton("Answer4", 100, 450, 600, 40, false);
+		int width = 900;
+		createRadioButton("Answer1", 100, 300, width, 40, false).setSelected(true);
+		createRadioButton("Answer2", 100, 350, width, 40, false);
+		createRadioButton("Answer3", 100, 400, width, 40, false);
+		createRadioButton("Answer4", 100, 450, width, 40, false);
 		
 	}
 	
@@ -174,5 +197,37 @@ public class PerguntasPanel extends BasePanel{
 		getRadioButton().get(1).setEnabled(enabled);
 		getRadioButton().get(2).setEnabled(enabled);
 		getRadioButton().get(3).setEnabled(enabled);
+	}
+	
+	private void cleanRadio(){
+		if(end){
+			for(int i = 0; i < 4; i++){
+				getRadioButton().get(i).setOpaque(false);
+			}
+			
+			changeColor((qe.selectedQuestion[qe.atualQuestion]));
+		}
+
+	}
+	
+	private void changeColor(int i){
+		
+		int aq = qe.atualQuestion;
+		int sq = qe.selectedQuestion[aq];
+		int rq = qe.rightQuestion[aq] - 1;
+		
+		if(rq == sq){
+			getRadioButton().get(sq).setOpaque(true);
+
+			getRadioButton().get(sq).setBackground(Color.GREEN);
+		}
+		else{
+			getRadioButton().get(rq).setOpaque(true);
+			getRadioButton().get(sq).setOpaque(true);
+
+			getRadioButton().get(rq).setBackground(Color.GREEN);
+			getRadioButton().get(sq).setBackground(Color.YELLOW);
+
+		}
 	}
 }

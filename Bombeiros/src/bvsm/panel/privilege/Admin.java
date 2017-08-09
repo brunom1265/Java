@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -77,8 +78,6 @@ public class Admin extends BasePanel {
 		sportColumn = getTable("mainTable").getColumnModel().getColumn(5);
 		createComboBox(type, "type");
 
-		sportColumn = getTable("mainTable").getColumnModel().getColumn(5);
-		createComboBox(type, "type");
 		sportColumn.setCellEditor(new DefaultCellEditor(getComboBox("type")));
 
 		questions = new Questions(cbm, db);
@@ -93,13 +92,15 @@ public class Admin extends BasePanel {
 
 	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
-
-		if (e.getActionCommand() == "Perguntas") {
+		String type = e.getActionCommand();
+		
+		if (type == "Perguntas") {
 			state = true;
 			cleanTable(questionModel);
 
 			JComboBox<String> cb = getComboBox("topic");
 			cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+			
 			try {
 				questions.getQuestions(questionModel, cbm.b3);
 			} catch (SQLException e1) {
@@ -123,7 +124,7 @@ public class Admin extends BasePanel {
 
 		}
 
-		if (e.getActionCommand() == "Utilizadores") {
+		if (type == "Utilizadores") {
 			state = false;
 
 			getComboBox("topic").setVisible(false);
@@ -144,41 +145,46 @@ public class Admin extends BasePanel {
 			getAllUsers();
 		}
 
-		if (e.getActionCommand() == "Voltar") {
+		if (type == "Voltar") {
 			setVisible(false);
 			previous.setVisible(true);
 		}
 
-		if (e.getActionCommand() == "Adicionar Utilizador") {
+		if (type == "Adicionar Utilizador") {
 			users.addUser(model);
 		}
 
-		if (e.getActionCommand() == "Adicionar Pergunta") {
+		if (type == "Adicionar Pergunta") {
 			questions.addQuestion(questionModel);
 		}
-		if (e.getActionCommand() == "Eliminar Pergunta") {
+		if (type == "Eliminar Pergunta") {
 			try {
 				questions.deleteQuestion(getTable("questionTable").getSelectedRow() + 1);
 				cleanTable(questionModel);
 				questions.getQuestions(questionModel, cbm.b3);
+				JOptionPane.showMessageDialog(null, "Pergunta eliminada com sucesso");
 
 			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, "Erro ao eliminar pergunta");
+
 				e1.printStackTrace();
 			}
 		}
 		
-		if (e.getActionCommand() == "Eliminar Utilizador") {
-			System.out.println("asd");
+		if (type == "Eliminar Utilizador") {
 			users.deleteUsers(getTable("mainTable").getSelectedRow() + 1);
 			cleanTable(model);
 			getAllUsers();
 		}
 
-		if (e.getActionCommand() == "Gravar") {
+		if (type == "Gravar") {
 			if (state) {
 				try {
 					questions.saveQuestions(db.getTableSize(questions.getTheme(), cbm.b3));
+					JOptionPane.showMessageDialog(null, "Perguntas Gravadas");
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "Falha ao Gravar");
+
 					e1.printStackTrace();
 				}
 			} else {
@@ -186,12 +192,11 @@ public class Admin extends BasePanel {
 			}
 		}
 
-		if (e.getActionCommand() == "comboBoxChanged") {
+		if (type == "comboBoxChanged") {
 			JComboBox<String> cb = (JComboBox<String>) e.getSource();
 			if (cb.isPopupVisible()) {
 				cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
 				cleanTable(questionModel);
-				System.out.println(e.getActionCommand());
 				try {
 					questions.getQuestions(questionModel, cbm.b3);
 				} catch (SQLException e1) {

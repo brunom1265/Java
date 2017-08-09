@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Tools implements ActionListener, ItemListener {
+public class Tools implements KeyListener, ActionListener, ItemListener {
 	JButton jbutton;
 	TextField textField;
 	TextArea textArea;
@@ -26,10 +28,11 @@ public class Tools implements ActionListener, ItemListener {
 
 	int buttonWidth = 110;
 	int buttonHeight = 35;
-	int style = Font.BOLD | Font.ITALIC;
+	//int style = Font.BOLD | Font.ITALIC;
 
 	public Tools() {
-		font = new Font("Jokerman", Font.PLAIN, 20);
+		font = new Font("Serif Bold", Font.PLAIN, 22);
+		
 	}
 
 	public ArrayList<JButton> buttonArray = new ArrayList<JButton>();
@@ -159,6 +162,8 @@ public class Tools implements ActionListener, ItemListener {
 		jtextArea = new JTextArea();
 		jtextArea.setText(text);
 		jtextArea.setBounds(x, y, buttonWidth, buttonHeight);
+		jtextArea.setLineWrap(false);
+		jtextArea.addKeyListener((KeyListener) this);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
 		return jtextAreaArray.get(jtextAreaArray.size() - 1);
@@ -169,6 +174,8 @@ public class Tools implements ActionListener, ItemListener {
 		jtextArea.setText(text);
 		jtextArea.setName(name);
 		jtextArea.setBounds(x, y, buttonWidth, buttonHeight);
+		jtextArea.setLineWrap(false);
+		jtextArea.addKeyListener((KeyListener) this);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
 		return jtextAreaArray.get(jtextAreaArray.size() - 1);
@@ -179,6 +186,8 @@ public class Tools implements ActionListener, ItemListener {
 		jtextArea.setText(text);
 		jtextArea.setName(name);
 		jtextArea.setBounds(x, y, width, height);
+		jtextArea.setLineWrap(false);
+		jtextArea.addKeyListener(this);
 		jtextArea.setVisible(true);
 		jtextAreaArray.add(jtextArea);
 		return jtextAreaArray.get(jtextAreaArray.size() - 1);
@@ -224,7 +233,7 @@ public class Tools implements ActionListener, ItemListener {
 		label = new JLabel();
 		label.setBounds(x, y, width, height);
 		label.setIcon(icon);
-		;
+		
 		label.setVisible(true);
 		labelArray.add(label);
 		return labelArray.get(labelArray.size() - 1);
@@ -251,6 +260,21 @@ public class Tools implements ActionListener, ItemListener {
 		combo.setSelectedIndex(0);
 		combo.addActionListener(this);
 		
+		JComboListArray.add(combo);
+		return combo;
+	}
+	
+	public JComboBox<String> createComboBox(String[] list, String name, int x, int y, int width, int height,
+			boolean visible) {
+		combo = new JComboBox<String>();
+		combo.setName(name);
+		combo.setBounds(x, y, width, height);
+		combo.setVisible(visible);
+		for (int yIndex = 0; yIndex < list.length; yIndex++) {
+			combo.addItem(list[yIndex]);
+		}
+		combo.setSelectedIndex(0);
+		combo.addActionListener(this);
 		JComboListArray.add(combo);
 		return combo;
 	}
@@ -306,6 +330,8 @@ public class Tools implements ActionListener, ItemListener {
 		rb.setActionCommand(name);
 		rb.setBounds(x, y, width, height);
 		rb.setVisible(visible);
+		rb.setFont(font);
+		rb.setOpaque(false);
 		JRadioButtonArray.add(rb);
 		return rb;
 
@@ -314,7 +340,7 @@ public class Tools implements ActionListener, ItemListener {
 	public JTable createTable(String name, int x, int y, int width, int height, boolean visible, String[] head,
 			JPanel panel) {
 		String[] header = head;
-		String[][] data = { {} };
+		String[][] data = {{}};
 
 		DefaultTableModel model = new DefaultTableModel(data, header);
 
@@ -353,10 +379,6 @@ public class Tools implements ActionListener, ItemListener {
 			panel.add(tArea);
 		}
 
-		for (JLabel label : labelArray) {
-			panel.add(label);
-		}
-
 		for (JComboBox<String> combo : JComboListArray) {
 			panel.add(combo);
 		}
@@ -365,6 +387,10 @@ public class Tools implements ActionListener, ItemListener {
 			bg.add(JRadioButtonArray.get(i));
 			JRadioButtonArray.get(i).addActionListener(this);
 			panel.add(JRadioButtonArray.get(i));
+		}
+		
+		for (JLabel label : labelArray) {
+			panel.add(label);
 		}
 	}
 
@@ -418,6 +444,16 @@ public class Tools implements ActionListener, ItemListener {
 
 		return null;
 	}
+	
+	public JTextArea getJTextArea(String name){
+		for(int i = 0; i < jtextAreaArray.size(); i++){
+			if(jtextAreaArray.get(i).getName() == name){
+				return jtextAreaArray.get(i);
+			}
+		}
+		return null;
+		
+	}
 
 	public JComboBox<String> getComboBox(String name) {
 		for (int i = 0; i < JComboListArray.size(); i++) {
@@ -457,5 +493,16 @@ public class Tools implements ActionListener, ItemListener {
 
 	public void itemStateChanged(ItemEvent e) {
 
+	}
+
+	public void keyPressed(KeyEvent e) {
+
+	}
+
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	public void keyTyped(KeyEvent e) {
 	}
 }

@@ -1,0 +1,115 @@
+package bvsm.panel;
+
+import java.awt.event.ActionEvent;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import bvsm.panel.tools.ComboBoxManager;
+
+public class ProcivPanel extends BasePanel {
+	WebDriver driver;
+
+	DefaultTableModel model;
+
+	public ProcivPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
+		super(previous, frame, name, x, y, width, height);
+	}
+
+	protected void createComponents() {
+
+		String[][] topic = { { "Santarém" } };
+
+		String[][] subTopic = { { "Salvaterra de Magos" } };
+
+		String[][][] subsubTopic = { { { "Salvaterra de Magos" } } };
+
+		createComboBox(topic, "Distrito", 100, 80, 150, 30, true);
+		createComboBox(subTopic, "Freguesia", 280, 80, 150, 30, true);
+		createComboBox(subsubTopic, "Freguesia", 460, 80, 150, 30, true);
+
+		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
+
+		String[] mainHeader = { "Ocorrência", "Estado", "Distrito", "Concelho", "Freguesia", "Localidade", "Dia/Hora",
+				"Natureza" };
+
+		createTable("mainTable", 100, 150, 900, 450, true, mainHeader, this.jpanel);
+
+		model = (DefaultTableModel) getTable("mainTable").getModel();
+
+		createButton("Atualizar", 100, 625, 145, 35, true);
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String type = e.getActionCommand();
+		if(type == "Atualizar"){
+			System.setProperty("webdriver.chrome.driver", "src\\lib\\chromedriver.exe");
+			
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			capabilities.setCapability("marionette", true);
+			
+			driver = new ChromeDriver();
+		    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			river.manage().window().maximize();
+
+			driver.get("http://www.prociv.pt/pt-pt/SITUACAOOPERACIONAL/Paginas/default.aspx?cID=15");
+			checkPageIsReady();
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			 Actions action = new Actions(dr);  
+			 action.sendKeys(Keys.PAGE_DOWN);  
+			 Thread.sleep(5000);  
+			 action.click(driver.findElement(By.partialLinkText("XYZ"))).perform();s			
+			
+			try{
+				String txt = driver.findElement(By.cssSelector("table.table")).getText();
+				System.out.println(txt);
+			}catch(Exception e1){
+				System.out.println("not found");
+			}
+			//driver.quit();
+			
+			//String[] array = pagesource.split(" ",-1); 
+
+			//System.out.println(pagesource);
+			//System.out.println(array[1]);
+			
+		}
+	}
+
+	public void checkPageIsReady() {
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		// Initially bellow given if condition will check ready state of page.
+		if (js.executeScript("return document.readyState").toString().equals("complete")) {
+			System.out.println("Page Is loaded.");
+			return;
+		}
+
+		// This loop will rotate for 25 times to check If page Is ready after
+		// every 1 second.
+		// You can replace your value with 25 If you wants to Increase or
+		// decrease wait time.
+		for (int i = 0; i < 25; i++) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+			// To check page ready state.
+			if (js.executeScript("return document.readyState").toString().equals("complete")) {
+				break;
+			}
+		}
+	}
+}

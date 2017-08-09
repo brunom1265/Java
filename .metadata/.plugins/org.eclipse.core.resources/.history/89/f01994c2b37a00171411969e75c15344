@@ -1,0 +1,22 @@
+package bvsm.images;
+
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+public class GetImages {
+	public ImageIcon icon;
+	
+	ArrayList<Icon> imageArray = new ArrayList<Icon>();
+	
+	public Icon getGif(String imageName){
+		icon = new  createImageIcon(getClass().getResource(imageName + ".gif"));
+		return icon;
+	}
+	
+	public Icon getImage(String imageName){
+		icon = new Icon(getClass().getResource(imageName + ".jpeg"));
+		return icon;
+		
+	}
+}

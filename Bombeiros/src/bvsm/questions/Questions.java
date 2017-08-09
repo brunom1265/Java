@@ -47,7 +47,6 @@ public class Questions {
 		a3.add("");
 		a4.add("");
 		size++;
-		System.out.println(size);
 
 
 	}
@@ -56,6 +55,7 @@ public class Questions {
 		for (int x = rowSize; x < (rowSize + size); x++) {
 			db.insertQuestion(x + 1, (String) model.getValueAt(x, 0), (String) model.getValueAt(x, 1),
 					(String) model.getValueAt(x, 2), (String) model.getValueAt(x, 3), (String) model.getValueAt(x, 4), getTheme(), cbm.b3);
+			System.out.print(x);
 
 		}
 		size = 0;

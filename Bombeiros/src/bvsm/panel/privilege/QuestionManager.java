@@ -36,16 +36,17 @@ public class QuestionManager extends BasePanel{
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
-		createButton("Perguntas", 100, 100);
+		createButton("Utilizador", 100, 100);
+		createButton("Perguntas", 220, 100);
 		
 		createButton("Adicionar Pergunta", 100, 550, 145, 35, true);
 		createButton("Eliminar Pergunta", 250, 550, 145, 35, true);
 		createButton("Gravar", 400, 550, 135, 35, true);
 		createButton("Voltar", "voltarDefinicoes", 100, 600);
 
-		createComboBox(topic, "topic", 100, 180, 200, 30, true);
-		createComboBox(subTopic, "subTopic", 330, 180, 200, 30, true);
-		createComboBox(subsubTopic, "subsubTopic", 510, 180, 200, 30, true);
+		createComboBox(topic, "topic", 100, 180, 150, 30, true);
+		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, true);
+		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, true);
 
 		String[] questionsHeader = { "Pergunta", "Resposta 1", "Resposta 2", "Resposta 3", "Resposta 4" };
 
@@ -55,21 +56,26 @@ public class QuestionManager extends BasePanel{
 		users = new UsersManager(db);
 
 		questionModel = (DefaultTableModel) getTable("questionTable").getModel();
-		
+		cleanTable(questionModel);
+
 		JComboBox<String> cb = getComboBox("topic");
 		cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));
+		
 		try {
 			questions.getQuestions(questionModel, cbm.b3);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
+		
+		String type = e.getActionCommand();
 
-		if (e.getActionCommand() == "Perguntas") {
+		if (type == "Perguntas") {
 			state = true;
 			cleanTable(questionModel);
 
@@ -82,15 +88,15 @@ public class QuestionManager extends BasePanel{
 			}
 		}
 		
-		if (e.getActionCommand() == "Voltar") {
+		if (type == "Voltar") {
 			setVisible(false);
 			previous.setVisible(true);
 		}
 		
-		if (e.getActionCommand() == "Adicionar Pergunta") {
+		if (type == "Adicionar Pergunta") {
 			questions.addQuestion(questionModel);
 		}
-		if (e.getActionCommand() == "Eliminar Pergunta") {
+		if (type == "Eliminar Pergunta") {
 			try {
 				questions.deleteQuestion(getTable("questionTable").getSelectedRow() + 1);
 				cleanTable(questionModel);
@@ -101,7 +107,7 @@ public class QuestionManager extends BasePanel{
 			}
 		}
 		
-		if (e.getActionCommand() == "Gravar") {
+		if (type == "Gravar") {
 			if (state) {
 				try {
 					questions.saveQuestions(db.getTableSize(questions.getTheme(), cbm.b3));
@@ -113,7 +119,7 @@ public class QuestionManager extends BasePanel{
 			}
 		}
 		
-		if(e.getActionCommand() == "comboBoxChanged"){
+		if(type == "comboBoxChanged"){
 			JComboBox<String> cb = (JComboBox<String>) e.getSource();
 			if (cb.isPopupVisible()) {
 				cbm.updateCombo(cb, getComboBox("topic"), getComboBox("subTopic"), getComboBox("subsubTopic"));

@@ -1,5 +1,0 @@
-package com.mecathronic;
-
-public abstract class GameObject {
-
-}

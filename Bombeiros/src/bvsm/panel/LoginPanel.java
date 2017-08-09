@@ -1,10 +1,13 @@
 package bvsm.panel;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import bvsm.users.User;
 
@@ -26,33 +29,58 @@ public class LoginPanel extends BasePanel{
 		
 		createLabel("Utilizador: ", "utilizador", 100, 100, 150, 35);
 		createLabel("Password: ", "password", 104, 150, 150, 35);
-		createJTextArea("utilizadorLogin", "", 220, 100, 110, 30).setText("ICENine");
-		createJTextArea("passwordLogin", "", 220, 150, 110, 30).setText("650031772");
+		createJTextArea("utilizadorLogin", "", 220, 100, 110, 30);
+		createJTextArea("passwordLogin", "", 220, 150, 110, 30);
+
 		createButton("Entrar", "entrarLogin", 200, 200);
-		createLabel(800, 0, 300,300, images.getImage("Bombeiros"));
+		createLabel(800, 0, 300,300, images.getGif("bombeiros"));
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand() == "Entrar"){
+		String temp = e.getActionCommand();
+		
+		if(temp == "Entrar"){
 			String username = getTextArea("utilizadorLogin").getText();
 			String password = getTextArea("passwordLogin").getText();
 			
 			try {
 				ResultSet res = db.getUser(username, password);
-				String user = res.getString(2);
-				
-				if(user.equals(username)){
-					int type = res.getInt(4);
-					users.setType(type);
-					users.setName(res.getString(5));
-					users.setSurname(res.getString(6));
-					users.setAge(res.getInt(7));
-					mP.getLabel("Name").setText(users.getName());
-					setVisible(false);
-					mP.setVisible(true);
+				if(res == null){
+					JOptionPane.showMessageDialog(null, "O username ou a password está errada");
+				}else{
+					String user = res.getString(2);
+					
+					if(user.equals(username)){
+						int type = res.getInt(4);
+						users.setType(type);
+						users.setName(res.getString(5));
+						users.setSurname(res.getString(6));
+						users.setAge(res.getInt(7));
+						mP.getLabel("Name").setText(users.getName());
+						setVisible(false);
+						mP.setVisible(true);
+					}
 				}
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+			} catch (SQLException x) {
+			}
+		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			getButton("entrarLogin").doClick();
+		}
+		
+		int keyCode = e.getKeyCode();
+
+		if(e.getComponent().getName() == "utilizadorLogin" || e.getComponent().getName() == "passwordLogin"){
+			if((keyCode >= 65 && keyCode <= 90) || (keyCode >= 48 && keyCode <= 57) ||  keyCode == 8 || keyCode == 127){
+			} else if(keyCode == 9){
+				getJTextArea("passwordLogin").grabFocus();
+				e.consume();
+			} else{
+				e.consume();
 			}
 		}
 	}

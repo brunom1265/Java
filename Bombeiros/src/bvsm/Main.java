@@ -20,6 +20,8 @@ public class Main {
 	ToolPanel toolPanel;
 		
 	public Main(){
+		
+		
 		mainFrame = new JFrame(mFrameTitle);
 		//toolFrame = new JFrame("Tools");
 		loginPanel = new LoginPanel(null, mainFrame, mFrameTitle, 0, 0, width, height);
