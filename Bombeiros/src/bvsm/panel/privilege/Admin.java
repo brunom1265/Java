@@ -33,13 +33,7 @@ public class Admin extends BasePanel {
 	}
 
 	protected void createComponents() {
-		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
-
-		String[][] subTopic = { { "Geral", "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
-
-		String[][][] subsubTopic = { { { "Fenomenologia da Combustão" }, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, { "123", "456" } }, { { "Tipos" } } };
-
+		
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 
 		// Main Buttons
@@ -232,7 +226,7 @@ public class Admin extends BasePanel {
 
 	private String verifyNumber(int number) {
 		if (number == 1) return "Administrador";
-		if (number == 2) return "Manager";
+		if (number == 2) return "Moderador";
 		if (number == 3) return "Utilizador";
 		return null;
 	}

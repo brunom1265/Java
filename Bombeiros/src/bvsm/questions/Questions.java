@@ -48,7 +48,6 @@ public class Questions {
 		a4.add("");
 		size++;
 
-
 	}
 
 	public void saveQuestions(int dbSize) {

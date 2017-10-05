@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import bvsm.panel.BasePanel;
 import bvsm.panel.tools.ComboBoxManager;
 import bvsm.questions.Questions;
+import bvsm.users.User;
 import bvsm.users.UsersManager;
 
 public class QuestionManager extends BasePanel{
@@ -17,7 +18,7 @@ public class QuestionManager extends BasePanel{
 	DefaultTableModel questionModel;
 	Questions questions;
 	UsersManager users;
-
+	User user;
 	boolean state = false;
 
 	public QuestionManager(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
@@ -27,26 +28,37 @@ public class QuestionManager extends BasePanel{
 	@SuppressWarnings("unchecked")
 	protected void createComponents() {
 		
-		String[][] topic = { { "Incêndio", "Saúde", "Comunicações" } };
-
-		String[][] subTopic = { { "Geral", "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
-
-		String[][][] subsubTopic = { { { "Fenomenologia da Combustão" }, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
-				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, { "123", "456" } }, { { "Tipos" } } };
-
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
-
+		user = new User();
+		
 		createButton("Utilizador", 100, 100);
 		createButton("Perguntas", 220, 100);
-		
-		createButton("Adicionar Pergunta", 100, 550, 145, 35, true);
-		createButton("Eliminar Pergunta", 250, 550, 145, 35, true);
-		createButton("Gravar", 400, 550, 135, 35, true);
-		createButton("Voltar", "voltarDefinicoes", 100, 600);
+		createButton("Estatísticas", 340, 100);
 
-		createComboBox(topic, "topic", 100, 180, 150, 30, true);
-		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, true);
-		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, true);
+		
+		//Utilizador
+		createButton("Editar", "editar", 100, 400);
+		createLabel("Nome: ", "nome", 100, 200);
+		createLabel("Apelido: ", "apelido", 350, 200);
+		createLabel("Idade: ", "idade", 100, 300);
+		createLabel("Privilégio: ", "privilegio", 250, 300);
+		createLabel(800, 0, 300,300, images.getGif("bombeiros"));
+
+		createJTextArea("textNome", "", 170, 200, 150, 30).setEditable(false);
+		createJTextArea("textApelido", "", 440, 200, 150, 30).setEditable(false);
+		createJTextArea("textIdade", "", 170, 300, 50, 30).setEditable(false);
+		createJTextArea("textPrivilegio", "", 360, 300, 150, 30).setEditable(false);
+
+
+		//Perguntas
+		createButton("Adicionar Pergunta", 100, 550, 145, 35, false);
+		createButton("Eliminar Pergunta", 250, 550, 145, 35, false);
+		createButton("Gravar", 400, 550, 135, 35, false);
+		createButton("Voltar", "voltarDefinicoes", 100, 600, true);
+		
+		createComboBox(topic, "topic", 100, 180, 150, 30, false);
+		createComboBox(subTopic, "subTopic", 280, 180, 150, 30, false);
+		createComboBox(subsubTopic, "subsubTopic", 460, 180, 150, 30, false);
 
 		String[] questionsHeader = { "Pergunta", "Resposta 1", "Resposta 2", "Resposta 3", "Resposta 4" };
 
@@ -54,7 +66,7 @@ public class QuestionManager extends BasePanel{
 
 		questions = new Questions(cbm, db);
 		users = new UsersManager(db);
-
+				
 		questionModel = (DefaultTableModel) getTable("questionTable").getModel();
 		cleanTable(questionModel);
 
@@ -74,7 +86,7 @@ public class QuestionManager extends BasePanel{
 	public void actionPerformed(ActionEvent e) {
 		
 		String type = e.getActionCommand();
-
+		
 		if (type == "Perguntas") {
 			state = true;
 			cleanTable(questionModel);
@@ -86,6 +98,46 @@ public class QuestionManager extends BasePanel{
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			
+			getComboBox("topic").setVisible(true);
+			getComboBox("subTopic").setVisible(true);
+			getComboBox("subsubTopic").setVisible(true);
+			getButton("Adicionar Pergunta").setVisible(true);
+			getButton("Eliminar Pergunta").setVisible(true);
+			setTableVisible("questionTable", true);
+			
+			getJTextArea("textNome").setVisible(false);
+			getJTextArea("textApelido").setVisible(false);
+			getJTextArea("textIdade").setVisible(false);
+			
+			getLabel("nome").setVisible(false);
+			getLabel("apelido").setVisible(false);
+			getLabel("idade").setVisible(false);
+			getLabel("privilegio").setVisible(false);
+			getButton("editar").setVisible(false);
+
+
+		}
+		
+		if(type == "Utilizador") {
+			getJTextArea("textNome").setVisible(true);
+			getJTextArea("textApelido").setVisible(true);
+			getJTextArea("textIdade").setVisible(true);
+			
+			getLabel("nome").setVisible(true);
+			getLabel("apelido").setVisible(true);
+			getLabel("idade").setVisible(true);
+			getLabel("privilegio").setVisible(true);
+			
+			getButton("editar").setVisible(true);
+			
+			getComboBox("topic").setVisible(false);
+			getComboBox("subTopic").setVisible(false);
+			getComboBox("subsubTopic").setVisible(false);
+			getButton("Adicionar Pergunta").setVisible(false);
+			getButton("Eliminar Pergunta").setVisible(false);
+			setTableVisible("questionTable", false);
+
 		}
 		
 		if (type == "Voltar") {
@@ -137,7 +189,7 @@ public class QuestionManager extends BasePanel{
 				}
 				questions.size = 0;
 			}
-		}
+		}		
 	}
 
 	private void cleanTable(DefaultTableModel model) {

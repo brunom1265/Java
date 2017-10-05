@@ -1,6 +1,5 @@
 package bvsm.users;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -61,7 +60,7 @@ public class UsersManager {
 	
 	private int verifyName(String name) {
 		if (name == "Administrador") return 1;
-		if (name == "Manager") return 2;
+		if (name == "Moderador") return 2;
 		if (name == "Utilizador") return 3;
 		return 3;
 	}

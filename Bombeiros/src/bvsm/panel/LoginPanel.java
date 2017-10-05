@@ -2,7 +2,6 @@ package bvsm.panel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,6 +15,8 @@ public class LoginPanel extends BasePanel{
 	BasePanel mP;
 	
 	User users;
+	
+	String password = "";
 	
 	public LoginPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -41,7 +42,6 @@ public class LoginPanel extends BasePanel{
 		
 		if(temp == "Entrar"){
 			String username = getTextArea("utilizadorLogin").getText();
-			String password = getTextArea("passwordLogin").getText();
 			
 			try {
 				ResultSet res = db.getUser(username, password);
@@ -65,15 +65,32 @@ public class LoginPanel extends BasePanel{
 			}
 		}
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			getButton("entrarLogin").doClick();
-		}
 		
 		int keyCode = e.getKeyCode();
 
+		if(keyCode == KeyEvent.VK_ENTER){
+			getButton("entrarLogin").doClick();
+		}
+
+		if(e.getComponent().getName() == "passwordLogin") {
+
+			int length = getJTextArea("passwordLogin").getText().length();
+			String word = "";
+			
+			for(int i = 0; i < length; i++) {
+				word += "*";
+			}
+			getJTextArea("passwordLogin").setText(word);
+			if(password.length() <= length && keyCode != 20 && keyCode != 8) password += e.getKeyChar();
+			else if(keyCode != 20 && length > 0){
+				password = password.substring(0, password.length() - 1);
+			}
+			System.out.println(password);
+		}
+				
 		if(e.getComponent().getName() == "utilizadorLogin" || e.getComponent().getName() == "passwordLogin"){
 			if((keyCode >= 65 && keyCode <= 90) || (keyCode >= 48 && keyCode <= 57) ||  keyCode == 8 || keyCode == 127){
 			} else if(keyCode == 9){

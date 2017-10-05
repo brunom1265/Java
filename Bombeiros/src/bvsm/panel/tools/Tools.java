@@ -216,6 +216,19 @@ public class Tools implements KeyListener, ActionListener, ItemListener {
 		return labelArray.get(labelArray.size() - 1);
 
 	}
+	
+	public JLabel createLabel(String text, String name, int x, int y, boolean visible) {
+		label = new JLabel();
+		label.setText(text);
+		label.setName(name);
+		label.setBounds(x, y, buttonWidth, buttonHeight);
+		label.setFont(font);
+		label.setForeground(color);
+		label.setVisible(visible);
+		labelArray.add(label);
+		return labelArray.get(labelArray.size() - 1);
+
+	}
 
 	public JLabel createLabel(String text, String name, int x, int y, int width, int height) {
 		label = new JLabel();
@@ -349,11 +362,14 @@ public class Tools implements KeyListener, ActionListener, ItemListener {
 		table.setPreferredScrollableViewportSize(new Dimension(width, height));
 		table.setFillsViewportHeight(true);
 		table.setRowHeight(25);
-
+		//table.setCellSelectionEnabled(true);
+	    //ListSelectionModel cellSelectionModel = table.getSelectionModel();
+	    //cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    
 		JScrollPane js = new JScrollPane(table);
 		js.setBounds(x, y, width, height);
 		js.setName(name);
-		js.setVisible(true);
+		js.setVisible(visible);
 
 		panel.add(js);
 		tableArray.add(table);

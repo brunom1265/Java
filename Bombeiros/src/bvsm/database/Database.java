@@ -9,33 +9,57 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import bvsm.panel.BasePanel;
+
 public class Database {
 
-	String host = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11189329";
-	String user = "sql11189329";
-	String password = "Y1FGHSNK7h";
+	String OnlineHost = "jdbc:mysql://mysql5.gear.host/bvsm";
+	String OfflineHost = "";
+	
+	String user = "bvsm";
+	String password = "Zw4L67v!Y1!K";
 
 	private static Connection con;
 	private static boolean hasData = false;
-
-	public Database() {
-		getQuestions("inFlorestal");
+	private static boolean verification = false;
+	
+	public Database(BasePanel base) {
+		//getQuestions("inFlorestal");
+		
 	}
 
-	private void connect() {
-		if (con == null) {
-			getConnection();
+	private void connectOnline() {
+		if(!verification) {
+			if (con == null) {
+				getConnectionOn(OnlineHost);
+				verification = true;
+			}
+		} else {
+			initialise();
+
+		}
+	}
+	
+	private void connectOffline() {
+		if(!verification) {
+			if (con == null) {
+				getConnectionOn(OfflineHost);
+				verification = true;
+			}
+		} else {
+			initialise();
+
 		}
 	}
 
-	private void getConnection() {
+	private void getConnectionOn(String host) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(host, user, password);
-			//initialise();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Não foi possível verificar as atualizações, o programa "
+												+ "	irá continuar offline");
 		}
 	}
 
@@ -44,34 +68,22 @@ public class Database {
 			hasData = true;
 			try {
 				Statement state = con.createStatement();
-				//ResultSet res = state
-						//.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='users'");
+				ResultSet res = state
+						.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='inGeral'");
 
-				//if (!res.next()) {
-					System.out.println("Building the User table");
-
-					Statement state2 = con.createStatement();
-					state2.execute("CREATE TABLE users(id integer(255)," + "username varchar(60),"
-							+ "password varchar(60)," + "type int(3)," + "name varchar(60)," + "surname varchar (60),"
-							+ "age integer(2));");
-
-					addUser(1, "ICENine", "650031772", 1, "Bruno", "Garcia", 23);
-
-					addUser(2, "assim", "asdf", 2, "Joana", "Madeira", 23);
-				//}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 
 		}
 	}
 
 	public void addUser(int dbSize, String username, String password, int type, String name, String surname, int age) {
-		connect();
+		connectOnline();
 
 		PreparedStatement prep;
 		try {
-			System.out.println(dbSize);
+			System.out.println("User added");
 			prep = con.prepareStatement("INSERT INTO users values(?, ?, ?, ?, ?, ?, ?)");
 			prep.setInt(1, dbSize);
 			prep.setString(2, username);
@@ -87,7 +99,7 @@ public class Database {
 	}
 
 	public ResultSet getUser(String username, String password) throws SQLException {
-		connect();
+		//connectOnline();
 
 		Statement state = con.createStatement();
 
@@ -101,7 +113,7 @@ public class Database {
 	}
 
 	public ResultSet getUsers() throws SQLException {
-		connect();
+		connectOnline();
 
 		Statement state = con.createStatement();
 
@@ -111,7 +123,7 @@ public class Database {
 	}
 
 	public void deleteUser(int id) {
-		connect();
+		connectOnline();
 
 		try {
 			Statement state = con.createStatement();
@@ -132,7 +144,7 @@ public class Database {
 	public void insertQuestion(int dbSize, String q1, String a1, String a2, String a3, String a4, String theme,
 			int type) {
 
-		connect();
+		connectOnline();
 
 		try {
 			PreparedStatement prep = con.prepareStatement("INSERT INTO " + theme + " values(?, ?, ?, ?, ?, ?, ?)");
@@ -151,7 +163,7 @@ public class Database {
 	}
 
 	public ResultSet getQuestions(String theme) {
-		connect();
+		connectOnline();
 		try {
 			Statement state = con.createStatement();
 			ResultSet res = state.executeQuery("SELECT * FROM " + theme);
@@ -165,7 +177,7 @@ public class Database {
 
 	public ResultSet getQuestions(String theme, int type) throws SQLException {
 
-		connect();
+		connectOnline();
 
 		Statement state = con.createStatement();
 
@@ -175,7 +187,7 @@ public class Database {
 	}
 
 	public void deleteQuestion(String theme, int id) throws SQLException {
-		connect();
+		connectOnline();
 
 		Statement state = con.createStatement();
 

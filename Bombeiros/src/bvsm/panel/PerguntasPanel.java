@@ -15,6 +15,7 @@ public class PerguntasPanel extends BasePanel{
 	String[] questions;
 	
 	boolean end = false;
+
 	
 	public PerguntasPanel(BasePanel previous, JFrame frame, String name, int x, int y, int width, int height) {
 		super(previous, frame, name, x, y, width, height);
@@ -26,25 +27,29 @@ public class PerguntasPanel extends BasePanel{
 
 		String[][] subTopic = { { "Geral", "Florestal", "Urbano" }, { "TS", "TAT", "TAS" }, { "Radios" } };
 
-		String[][][] subsubTopic = { { { "Fenomenologia da Combustão" }, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
+		String[][][] subsubTopic = { { { "Fenomenologia da Combustão"}, { "Extintores", "Bombas" }, { "EPI", "Hidrantes" } },
 				{ { "SBV", "PCR" }, { "Abordagem da Vítima", "2" }, { "123", "456" } }, { { "Tipos" } } };
 
 		cbm = new ComboBoxManager(this, subsubTopic, topic, subTopic);
 		qe = new QuestionsEngine(cbm, db);
-				
-		createComboBox(topic, "topic", 100, 100, 150, 30, true);
-		createComboBox(subTopic, "subTopic", 280, 100, 150, 30, true);
-		createComboBox(subsubTopic, "subsubTopic", 460, 100, 150, 30, true);
+		
+		int comboWidth = 150;
+		int comboHeight = 30;
+		int comboY = 40;
+		
+		createComboBox(topic, "topic", 100, comboY, comboWidth, comboHeight, true);
+		createComboBox(subTopic, "subTopic", 280, comboY, comboWidth, comboHeight, true);
+		createComboBox(subsubTopic, "subsubTopic", 460, comboY, comboWidth, comboHeight, true);
 		
 		String[] questionsSize = {"10", "20", "30", "40"};
 		
-		createComboBox(questionsSize, "questionsSize", 640, 100, 150, 30, true);
+		createComboBox(questionsSize, "questionsSize", 640, comboY, comboWidth, comboHeight, true);
 		
-		createLabel("", "question", 100, 150, 800, 130);
-		createLabel("", "note", 600, 250, 200, 50);
+		createLabel("", "question", 100, 90, 800, 130);
+		createLabel("", "note", 850, 550, 200, 50);
 		createLabel(0, 0, this.jpanel.getWidth(), this.jpanel.getHeight(), images.getImage("Capa"));
 
-		createButton("Iniciar teste", "iniciar", 100, 200);
+		createButton("Iniciar teste", "iniciar", 100, 120);
 		createButton("Anterior", "anterior", 100, 500, false);
 		createButton("Proxima", "proxima", 600, 500, false);
 		createButton("Voltar", "voltar", 100, 600);
@@ -145,7 +150,6 @@ public class PerguntasPanel extends BasePanel{
 			setRadioButton(false);
 			getButton("novoTeste").setVisible(true);;
 			getLabel("note").setVisible(true);
-			
 			cleanRadio();
 						
 		}
@@ -176,10 +180,12 @@ public class PerguntasPanel extends BasePanel{
 	private void createQuestionArea() {
 		createButtonGroup();
 		int width = 900;
-		createRadioButton("Answer1", 100, 300, width, 40, false).setSelected(true);
-		createRadioButton("Answer2", 100, 350, width, 40, false);
-		createRadioButton("Answer3", 100, 400, width, 40, false);
-		createRadioButton("Answer4", 100, 450, width, 40, false);
+		int radioWidth = 100;
+		
+		createRadioButton("Answer1", radioWidth, 250, width, 40, false).setSelected(true);
+		createRadioButton("Answer2", radioWidth, 300, width, 40, false);
+		createRadioButton("Answer3", radioWidth, 350, width, 40, false);
+		createRadioButton("Answer4", radioWidth, 400, width, 40, false);
 		
 	}
 	

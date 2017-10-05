@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import bvsm.panel.privilege.Admin;
 import bvsm.panel.privilege.QuestionManager;
 import bvsm.users.User;
+import bvsm.users.UserPanel;
 
 public class MainPanel extends BasePanel{
 	
@@ -26,7 +27,8 @@ public class MainPanel extends BasePanel{
 		questionsPanel = new PerguntasPanel(this, frame, "Perguntas", 0, 0, width, height);
 		adminPanel = new Admin(this, frame, "Definicoes", 0, 0, width, height);
 		managerPanel = new QuestionManager(this, frame, "Definicoes", 0, 0, width, height);
-
+		userPanel = new UserPanel(this, frame, "Definicoes", 0, 0, width, height);
+		
 		user = new User();
 		this.frame = frame;
 	}
@@ -58,8 +60,22 @@ public class MainPanel extends BasePanel{
 		if(type == "Definições"){
 			setVisible(false);
 
-			if(user.getType() == 1) adminPanel.setVisible(true);
-			if(user.getType() == 2) managerPanel.setVisible(true);
+			switch(user.getType()) {
+			case 1:
+				adminPanel.setVisible(true);
+				break;
+			case 2:
+				managerPanel.getJTextArea("textNome").setText(user.getName());
+				managerPanel.getJTextArea("textApelido").setText(user.getSurname());
+				managerPanel.getJTextArea("textIdade").setText(String.valueOf(user.getAge()));
+
+				managerPanel.setVisible(true);
+				break;
+			case 3:
+				userPanel.setUser(user);
+				userPanel.setVisible(true);
+				break;
+			}
 		}
 		
 		if(type == "Sair"){

@@ -19,4 +19,10 @@ public class GetImages {
 		return icon;
 		
 	}
+	
+	public ImageIcon getTransImage(String imageName){
+		icon = new ImageIcon(getClass().getResource(imageName + ".png"));
+		return icon;
+		
+	}
 }
