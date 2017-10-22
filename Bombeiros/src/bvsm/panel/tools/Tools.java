@@ -55,6 +55,16 @@ public class Tools implements KeyListener, ActionListener, ItemListener {
 		jbutton.setVisible(true);
 		buttonArray.add(jbutton);
 	}
+	
+	public void createButton(String text, int x, int y, boolean visible) {
+		jbutton = new JButton();
+		jbutton.setText(text);
+		jbutton.setName(text);
+		jbutton.setBounds(x, y, buttonWidth, buttonHeight);
+		jbutton.addActionListener(this);
+		jbutton.setVisible(visible);
+		buttonArray.add(jbutton);
+	}
 
 	public void createButton(String text, int x, int y, int width, int height) {
 		jbutton = new JButton();
@@ -189,6 +199,18 @@ public class Tools implements KeyListener, ActionListener, ItemListener {
 		jtextArea.setLineWrap(false);
 		jtextArea.addKeyListener(this);
 		jtextArea.setVisible(true);
+		jtextAreaArray.add(jtextArea);
+		return jtextAreaArray.get(jtextAreaArray.size() - 1);
+	}
+	
+	public JTextArea createJTextArea(String name, String text, int x, int y, int width, int height, boolean visible) {
+		jtextArea = new JTextArea();
+		jtextArea.setText(text);
+		jtextArea.setName(name);
+		jtextArea.setBounds(x, y, width, height);
+		jtextArea.setLineWrap(false);
+		jtextArea.addKeyListener(this);
+		jtextArea.setVisible(visible);
 		jtextAreaArray.add(jtextArea);
 		return jtextAreaArray.get(jtextAreaArray.size() - 1);
 	}

@@ -28,6 +28,7 @@ public class LoginPanel extends BasePanel{
 	
 	protected void createComponents(){
 		
+		//Utilizador
 		createLabel("Utilizador: ", "utilizador", 100, 100, 150, 35);
 		createLabel("Password: ", "password", 104, 150, 150, 35);
 		createJTextArea("utilizadorLogin", "", 220, 100, 110, 30);
@@ -83,12 +84,14 @@ public class LoginPanel extends BasePanel{
 			for(int i = 0; i < length; i++) {
 				word += "*";
 			}
+			
 			getJTextArea("passwordLogin").setText(word);
-			if(password.length() <= length && keyCode != 20 && keyCode != 8) password += e.getKeyChar();
-			else if(keyCode != 20 && length > 0){
+			if(password.length() <= length && keyCode != 20 && keyCode != 8 && keyCode != 10) {
+				password += e.getKeyChar();
+			}
+			else if(keyCode != 20 && length > 0 && keyCode != 10){
 				password = password.substring(0, password.length() - 1);
 			}
-			System.out.println(password);
 		}
 				
 		if(e.getComponent().getName() == "utilizadorLogin" || e.getComponent().getName() == "passwordLogin"){

@@ -62,6 +62,10 @@ public class MainPanel extends BasePanel{
 
 			switch(user.getType()) {
 			case 1:
+				adminPanel.getJTextArea("textNome").setText(user.getName());
+				adminPanel.getJTextArea("textApelido").setText(user.getSurname());
+				adminPanel.getJTextArea("textIdade").setText(String.valueOf(user.getAge()));
+				
 				adminPanel.setVisible(true);
 				break;
 			case 2:
@@ -72,7 +76,11 @@ public class MainPanel extends BasePanel{
 				managerPanel.setVisible(true);
 				break;
 			case 3:
-				userPanel.setUser(user);
+				
+				userPanel.getJTextArea("textNome").setText(user.getName());
+				userPanel.getJTextArea("textApelido").setText(user.getSurname());
+				userPanel.getJTextArea("textIdade").setText(String.valueOf(user.getAge()));
+				
 				userPanel.setVisible(true);
 				break;
 			}
