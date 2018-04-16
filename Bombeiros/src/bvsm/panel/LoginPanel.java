@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
 
 import bvsm.users.User;
 
@@ -31,7 +32,7 @@ public class LoginPanel extends BasePanel{
 		//Utilizador
 		createLabel("Utilizador: ", "utilizador", 100, 100, 150, 35);
 		createLabel("Password: ", "password", 104, 150, 150, 35);
-		createJTextArea("utilizadorLogin", "", 220, 100, 110, 30);
+		createTextField("utilizadorLogin", "", 220, 100, 110, 30);
 		createJTextArea("passwordLogin", "", 220, 150, 110, 30);
 
 		createButton("Entrar", "entrarLogin", 200, 200);
@@ -86,6 +87,7 @@ public class LoginPanel extends BasePanel{
 			}
 			
 			getJTextArea("passwordLogin").setText(word);
+
 			if(password.length() <= length && keyCode != 20 && keyCode != 8 && keyCode != 10) {
 				password += e.getKeyChar();
 			}
